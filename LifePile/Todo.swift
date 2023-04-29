@@ -11,7 +11,7 @@ import SwiftUI
 struct Todo: ReducerProtocol {
     struct State: Equatable, Identifiable {
         let id = UUID()
-        let title: String
+        var title: String
         var offset = 0.0
     }
     
@@ -19,6 +19,7 @@ struct Todo: ReducerProtocol {
         case offsetChanged(newOffset: Double)
         case resetOffset
         case removeTodo
+        case titleChanged(newTitle: String)
     }
     
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -31,6 +32,9 @@ struct Todo: ReducerProtocol {
             return .none
         case .removeTodo:
             return .none
+        case .titleChanged(let newTitle):
+            state.title = newTitle
+            return .none
         }
     }
 }
@@ -40,10 +44,12 @@ struct TodoView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            Text(viewStore.title)
+            TextField("", text: viewStore.binding(get: \.title,
+                                                  send: Todo.Action.titleChanged))
                 .padding(.horizontal)
                 .padding(.vertical, 10)
                 .foregroundColor(.white)
+                .fixedSize()
                 .background(Capsule().fill(Color.blue))
                 .frame(maxWidth: .infinity)
                 .offset(x: viewStore.offset)
