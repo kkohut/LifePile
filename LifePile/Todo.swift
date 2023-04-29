@@ -40,29 +40,22 @@ struct TodoView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            HStack {
-                Spacer()
-                Text(viewStore.title)
-                    .padding(.horizontal)
-                    .padding(.vertical, 10)
-                    .foregroundColor(.white)
-                    .background(Capsule().fill(Color.blue))
-                    .offset(x: viewStore.offset)
-                    .gesture(
-                        DragGesture()
-                            .onChanged { gesture in
-                                viewStore.send(.offsetChanged(newOffset: gesture.translation.width))
-                            }
-                            .onEnded { _ in
-                                if abs(viewStore.offset) > 100 {
-                                    viewStore.send(.removeTodo)
-                                } else {
-                                    viewStore.send(.resetOffset)
-                                }
-                            }
-                    )
-                Spacer()
-            }
+            Text(viewStore.title)
+                .padding(.horizontal)
+                .padding(.vertical, 10)
+                .foregroundColor(.white)
+                .background(Capsule().fill(Color.blue))
+                .frame(maxWidth: .infinity)
+                .offset(x: viewStore.offset)
+                .gesture(
+                    DragGesture()
+                        .onChanged { gesture in
+                            viewStore.send(.offsetChanged(newOffset: gesture.translation.width))
+                        }
+                        .onEnded { _ in
+                            viewStore.send(abs(viewStore.offset) > 100 ? .removeTodo : .resetOffset)
+                        }
+                )
         }
     }
 }

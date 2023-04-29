@@ -1,5 +1,5 @@
 //
-//  Tasks.swift
+//  Todos.swift
 //  LifePile
 //
 //  Created by Kevin Kohut on 29.04.23.
@@ -18,12 +18,16 @@ struct Todos: ReducerProtocol {
     }
     
     enum Action: Equatable {
+        case addTodo
         case todo(id: Todo.State.ID, action: Todo.Action)
     }
     
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
+            case .addTodo:
+                state.todos.insert(.init(title: "New Todo"), at: 0)
+                return .none
             case .todo(id: let id, action: .removeTodo):
                 state.todos.remove(id: id)
                 return .none
@@ -48,7 +52,9 @@ struct TodosView: View {
             VStack {
                 Spacer()
                 
-                Button(action: { }) {
+                Button(action: {
+                    viewStore.send(.addTodo)
+                }) {
                     HStack {
                         Image(systemName: "plus.circle.fill")
                         Text("Add task")
@@ -58,6 +64,7 @@ struct TodosView: View {
                 .buttonStyle(.bordered)
                 .buttonBorderShape(.capsule)
                 .tint(.green)
+                .compositingGroup()
                 
                 ForEachStore(self.store.scope(state: \.todos, action: Todos.Action.todo(id:action:))) {
                     TodoView(store: $0)
