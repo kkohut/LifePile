@@ -50,27 +50,41 @@ struct TodosView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack {
-                Spacer()
+                HStack {
+                    Text("\(viewStore.todos.count) Todos")
+                        .font(.largeTitle)
+                    Spacer()
+                }
                 
-                Button(action: {
-                    viewStore.send(.addTodo)
-                }) {
-                    HStack {
-                        Image(systemName: "plus.circle.fill")
-                        Text("Add task")
-                            .bold()
+                GeometryReader { geometry in
+                    ScrollView {
+                        VStack {
+                            Spacer()
+                            
+                            Button(action: {
+                                viewStore.send(.addTodo)
+                            }) {
+                                HStack {
+                                    Image(systemName: "plus.circle.fill")
+                                    Text("Add task")
+                                        .bold()
+                                }
+                            }
+                            .buttonStyle(.bordered)
+                            .buttonBorderShape(.capsule)
+                            .tint(.green)
+                            .compositingGroup()
+                            
+                            ForEachStore(self.store.scope(state: \.todos, action: Todos.Action.todo(id:action:))) {
+                                TodoView(store: $0)
+                            }
+                        }
+                        .frame(minWidth: geometry.size.width, minHeight: geometry.size.height)
+                        .animation(.spring(), value: viewStore.todos)
                     }
                 }
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.capsule)
-                .tint(.green)
-                .compositingGroup()
-                
-                ForEachStore(self.store.scope(state: \.todos, action: Todos.Action.todo(id:action:))) {
-                    TodoView(store: $0)
-                }
             }
-            .animation(.spring(), value: viewStore.todos)
+            .padding()
         }
     }
 }

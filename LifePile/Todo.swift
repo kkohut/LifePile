@@ -51,7 +51,6 @@ struct TodoView: View {
                 .foregroundColor(.white)
                 .fixedSize()
                 .background(Capsule().fill(Color.blue))
-                .frame(maxWidth: .infinity)
                 .offset(x: viewStore.offset)
                 .gesture(
                     DragGesture()
