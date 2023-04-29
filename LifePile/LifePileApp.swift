@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct LifePileApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TodosView(
+                store: Store(
+                    initialState: Todos.State(),
+                    reducer: Todos()
+                )
+            )
         }
     }
 }
