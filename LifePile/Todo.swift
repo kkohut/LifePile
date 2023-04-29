@@ -61,6 +61,7 @@ struct TodoView: View {
                             viewStore.send(abs(viewStore.offset) > 100 ? .removeTodo : .resetOffset)
                         }
                 )
+                .animation(.spring(), value: viewStore.offset)
         }
     }
 }

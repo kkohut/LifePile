@@ -80,7 +80,7 @@ struct TodosView: View {
                             }
                         }
                         .frame(minWidth: geometry.size.width, minHeight: geometry.size.height)
-                        .animation(.spring(), value: viewStore.todos)
+                        .animation(.spring(), value: viewStore.todos.count)
                     }
                 }
             }
