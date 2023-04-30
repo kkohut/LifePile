@@ -7,12 +7,14 @@
 
 import ComposableArchitecture
 import SwiftUI
+import AudioToolbox
 
 struct Todo: ReducerProtocol {
     struct State: Equatable, Identifiable {
         let id = UUID()
         var title: String
         var offset = 0.0
+        var aboutToBeDone = false
     }
     
     enum Action: Equatable {
@@ -26,11 +28,18 @@ struct Todo: ReducerProtocol {
         switch action {
         case .offsetChanged(let newOffset):
             state.offset = newOffset
+            if !state.aboutToBeDone && newOffset >= 50 {
+                state.aboutToBeDone = true
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            } else if newOffset < 50 {
+                state.aboutToBeDone = false
+            }
             return .none
         case .draggedUnderThreshold:
             state.offset = 0
             return .none
         case .draggedOverThreshold:
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             return .none
         case .titleChanged(let newTitle):
             state.title = newTitle
@@ -44,25 +53,32 @@ struct TodoView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            TextField("", text: viewStore.binding(get: \.title,
-                                                  send: Todo.Action.titleChanged))
-                .padding(.horizontal)
-                .padding(.vertical, 10)
-                .foregroundColor(.white)
-                .fixedSize()
-                .background(Capsule().fill(Color.blue))
-                .offset(x: viewStore.offset)
-                .gesture(
-                    DragGesture()
-                        .onChanged { gesture in
-                            viewStore.send(.offsetChanged(newOffset: gesture.translation.width))
-                        }
-                        .onEnded { _ in
-                            let dragThreshold = 100.0
-                            viewStore.send(abs(viewStore.offset) > dragThreshold ? .draggedOverThreshold : .draggedUnderThreshold)
-                        }
-                )
-                .animation(.spring(), value: viewStore.offset	)
+            HStack {
+                if viewStore.aboutToBeDone {
+                    Image(systemName: "checkmark")
+                }
+                
+                TextField("", text: viewStore.binding(get: \.title,
+                                                      send: Todo.Action.titleChanged))
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 10)
+            .foregroundColor(.white)
+            .fixedSize()
+            .background(Capsule().fill(viewStore.aboutToBeDone ? Color.green : Color.blue))
+            .offset(x: viewStore.offset)
+            .gesture(
+                DragGesture()
+                    .onChanged { gesture in
+                        viewStore.send(.offsetChanged(newOffset: gesture.translation.width))
+                    }
+                    .onEnded { _ in
+                        let dragThreshold = 100.0
+                        viewStore.send(viewStore.aboutToBeDone ? .draggedOverThreshold : .draggedUnderThreshold)
+                    }
+            )
+            .transition(.slide.combined(with: .opacity))
+            .animation(.linear, value: viewStore.offset	)
         }
     }
 }
