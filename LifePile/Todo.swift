@@ -14,13 +14,28 @@ struct Todo: ReducerProtocol {
         let id = UUID()
         var title: String
         var offset = 0.0
-        var aboutToBeDone = false
+        var dragState = DragState.idle {
+            willSet {
+                if dragState != newValue {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                }
+            }
+        }
+        
+        enum DragState {
+            case idle
+            case done
+            case delete
+        }
     }
     
     enum Action: Equatable {
         case offsetChanged(newOffset: Double)
         case draggedUnderThreshold
-        case draggedOverThreshold
+        case draggedToDeletion
+        case draggedToCompletion
+        //        case draggedOverThreshold
+        //        case dragEnded
         case titleChanged(newTitle: String)
     }
     
@@ -28,19 +43,41 @@ struct Todo: ReducerProtocol {
         switch action {
         case .offsetChanged(let newOffset):
             state.offset = newOffset
-            if !state.aboutToBeDone && newOffset >= 50 {
-                state.aboutToBeDone = true
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-            } else if newOffset < 50 {
-                state.aboutToBeDone = false
+            switch state.offset {
+                case -(Double.infinity) ..< -50.0:
+                state.dragState = .delete
+            case -50.0 ..< 50.0:
+                state.dragState = .idle
+            case 50.0 ..< Double.infinity:
+                state.dragState = .done
+            default:
+                fatalError("Switch over double is not exhaustive")
             }
+            //            if !state.aboutToBeDone && newOffset >= 50 {
+            //                state.aboutToBeDone = true
+            //                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            //            } else if newOffset < 50 {
+            //                state.aboutToBeDone = false
+            //            }
             return .none
         case .draggedUnderThreshold:
             state.offset = 0
             return .none
-        case .draggedOverThreshold:
+        case .draggedToDeletion:
             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             return .none
+        case .draggedToCompletion:
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            return .none
+            //        case .dragEnded:
+            //            switch state.dragState {
+            //            case .idle:
+            //                state.offset = 0
+            //            case .done:
+            //
+            //            case .delete:
+            //                <#code#>
+            //            }
         case .titleChanged(let newTitle):
             state.title = newTitle
             return .none
@@ -53,19 +90,35 @@ struct TodoView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
+            var color: Color {
+                switch viewStore.dragState {
+                case .delete:
+                    return .red
+                case .idle:
+                    return .blue
+                case .done:
+                    return .green
+                }
+            }
+            
             HStack {
-                if viewStore.aboutToBeDone {
-                    Image(systemName: "checkmark")
+                if viewStore.dragState == .delete {
+                    Image(systemName: "x.circle")
                 }
                 
                 TextField("", text: viewStore.binding(get: \.title,
                                                       send: Todo.Action.titleChanged))
+                
+                if viewStore.dragState == .done {
+                    Image(systemName: "checkmark.circle")
+                }
             }
+            .frame(height: 16)
             .padding(.horizontal)
             .padding(.vertical, 10)
             .foregroundColor(.white)
             .fixedSize()
-            .background(Capsule().fill(viewStore.aboutToBeDone ? Color.green : Color.blue))
+            .background(Capsule().fill(color))
             .offset(x: viewStore.offset)
             .gesture(
                 DragGesture()
@@ -73,12 +126,17 @@ struct TodoView: View {
                         viewStore.send(.offsetChanged(newOffset: gesture.translation.width))
                     }
                     .onEnded { _ in
-                        let dragThreshold = 100.0
-                        viewStore.send(viewStore.aboutToBeDone ? .draggedOverThreshold : .draggedUnderThreshold)
+                        switch viewStore.dragState {
+                        case .delete:
+                            viewStore.send(.draggedToDeletion)
+                        case .idle:
+                            viewStore.send(.draggedUnderThreshold)
+                        case .done:
+                            viewStore.send(.draggedToCompletion)
+                        }
                     }
             )
-            .transition(.slide.combined(with: .opacity))
-            .animation(.linear, value: viewStore.offset	)
+            .animation(.linear, value: viewStore.offset)
         }
     }
 }
