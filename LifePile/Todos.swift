@@ -28,7 +28,7 @@ struct Todos: ReducerProtocol {
             case .addTodo:
                 state.todos.insert(.init(title: "New Todo"), at: 0)
                 return .none
-            case .todo(id: let id, action: .removeTodo):
+            case .todo(id: let id, action: .draggedOverThreshold):
                 state.todos.remove(id: id)
                 return .none
             case .todo(id: _, action: _):

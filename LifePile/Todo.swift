@@ -17,8 +17,8 @@ struct Todo: ReducerProtocol {
     
     enum Action: Equatable {
         case offsetChanged(newOffset: Double)
-        case resetOffset
-        case removeTodo
+        case draggedUnderThreshold
+        case draggedOverThreshold
         case titleChanged(newTitle: String)
     }
     
@@ -27,10 +27,10 @@ struct Todo: ReducerProtocol {
         case .offsetChanged(let newOffset):
             state.offset = newOffset
             return .none
-        case .resetOffset:
+        case .draggedUnderThreshold:
             state.offset = 0
             return .none
-        case .removeTodo:
+        case .draggedOverThreshold:
             return .none
         case .titleChanged(let newTitle):
             state.title = newTitle
@@ -58,10 +58,11 @@ struct TodoView: View {
                             viewStore.send(.offsetChanged(newOffset: gesture.translation.width))
                         }
                         .onEnded { _ in
-                            viewStore.send(abs(viewStore.offset) > 100 ? .removeTodo : .resetOffset)
+                            let dragThreshold = 100.0
+                            viewStore.send(abs(viewStore.offset) > dragThreshold ? .draggedOverThreshold : .draggedUnderThreshold)
                         }
                 )
-                .animation(.spring(), value: viewStore.offset)
+                .animation(.spring(), value: viewStore.offset	)
         }
     }
 }
