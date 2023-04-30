@@ -24,9 +24,7 @@ struct Todo: ReducerProtocol {
     
     enum Action: Equatable {
         case offsetChanged(newOffset: Double)
-        case draggedWithinThreshold
-        case draggedToDeletion
-        case draggedToCompletion
+        case dragEnded
         case titleChanged(newTitle: String)
     }
     
@@ -35,43 +33,36 @@ struct Todo: ReducerProtocol {
         case .offsetChanged(let newOffset):
             state.offset = newOffset
             let originalDragState = state.dragState
+            
             switch state.offset {
-                case -(Double.infinity) ..< -50.0:
+                case -(Double.infinity)..<(-50.0):
                 state.dragState = .delete
-            case -50.0 ..< 50.0:
+            case -50.0..<50.0:
                 state.dragState = .idle
-            case 50.0 ..< Double.infinity:
+            case 50.0...Double.infinity:
                 state.dragState = .done
             default:
                 fatalError("Switch over double is not exhaustive")
             }
             
             if originalDragState != state.dragState {
-                lightVibration()
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
             }
             
             return .none
-        case .draggedWithinThreshold:
-            state.offset = 0
-            return .none
-        case .draggedToDeletion:
-            mediumVibration()
-            return .none
-        case .draggedToCompletion:
-            mediumVibration()
+        case .dragEnded:
+            switch state.dragState {
+            case .idle:
+                state.offset = 0
+            case .done, .delete:
+                break
+            }
+            
             return .none
         case .titleChanged(let newTitle):
             state.title = newTitle
             return .none
         }
-    }
-    
-    private func lightVibration() {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-    }
-    
-    private func mediumVibration() {
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
 }
 
@@ -105,14 +96,7 @@ struct TodoView: View {
                         viewStore.send(.offsetChanged(newOffset: gesture.translation.width))
                     }
                     .onEnded { _ in
-                        switch viewStore.dragState {
-                        case .delete:
-                            viewStore.send(.draggedToDeletion)
-                        case .idle:
-                            viewStore.send(.draggedWithinThreshold)
-                        case .done:
-                            viewStore.send(.draggedToCompletion)
-                        }
+                        viewStore.send(.dragEnded)
                     }
             )
             .animation(.linear, value: viewStore.offset)

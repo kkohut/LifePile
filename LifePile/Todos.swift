@@ -13,7 +13,9 @@ struct Todos: ReducerProtocol {
     struct State: Equatable {
         var todos: IdentifiedArrayOf<Todo.State> = [
             .init(title: "Clean windows"),
-            .init(title: "Read")
+            .init(title: "Read"),
+            .init(title: "Go for a run"),
+            .init(title: "Study algebra"),
         ]
     }
     
@@ -27,13 +29,17 @@ struct Todos: ReducerProtocol {
             switch action {
             case .addTodo:
                 state.todos.insert(.init(title: "New Todo"), at: 0)
+                mediumVibration()
                 return .none
-            case .todo(id: let id, action: .draggedToDeletion):
-                state.todos.remove(id: id)
-                return .none
-            case .todo(id: let id, action: .draggedToCompletion):
-                // TODO: mark as completed
-                state.todos.remove(id: id)
+            case .todo(id: let id, action: .dragEnded):
+                let draggedTodo = state.todos.first(where: { $0.id == id })!
+                switch draggedTodo.dragState {
+                case .idle:
+                    break
+                case .done, .delete:
+                    state.todos.remove(id: id)
+                    mediumVibration()
+                }
                 return .none
             case .todo(id: _, action: _):
                 return .none
@@ -45,6 +51,9 @@ struct Todos: ReducerProtocol {
         }
     }
     
+    private func mediumVibration() {
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+    }
 }
 
 struct TodosView: View {
