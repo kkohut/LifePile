@@ -28,6 +28,9 @@ struct Todo: ReducerProtocol {
         case titleChanged(newTitle: String)
     }
     
+    
+    @Dependency(\.tapticEngine) var tapticEngine
+    
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .offsetChanged(let newOffset):
@@ -46,7 +49,7 @@ struct Todo: ReducerProtocol {
             }
             
             if originalDragState != state.dragState {
-                TapticEngine().lightFeedback()
+                tapticEngine.lightFeedback()
             }
             
             return .none

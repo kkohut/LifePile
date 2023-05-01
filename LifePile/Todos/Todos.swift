@@ -20,13 +20,14 @@ struct Todos: ReducerProtocol {
     
     
     @Dependency(\.uuid) var uuid
+    @Dependency(\.tapticEngine) var tapticEngine
     
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
             case .addTodo:
                 state.todos.insert(.init(title: "New Todo", id: self.uuid()), at: 0)
-                TapticEngine().mediumFeedback()
+                tapticEngine.mediumFeedback()
                 return .none
             case .todo(id: let id, action: .dragEnded):
                 let draggedTodo = state.todos.first(where: { $0.id == id })!
@@ -35,7 +36,7 @@ struct Todos: ReducerProtocol {
                     break
                 case .done, .delete:
                     state.todos.remove(id: id)
-                    TapticEngine().mediumFeedback()
+                    tapticEngine.mediumFeedback()
                 }
                 return .none
             case .todo(id: _, action: _):

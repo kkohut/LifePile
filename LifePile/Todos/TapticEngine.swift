@@ -6,6 +6,7 @@
 //
 
 import UIKit.UIImpactFeedbackGenerator
+import Dependencies
 
 struct TapticEngine {
     func lightFeedback() {
@@ -15,4 +16,15 @@ struct TapticEngine {
     func mediumFeedback() {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
+}
+
+extension DependencyValues {
+    var tapticEngine: TapticEngine {
+        get { self[TapticEngineKey.self] }
+        set { self[TapticEngineKey.self] = newValue }
+    }
+}
+
+private enum TapticEngineKey: DependencyKey {
+    static let liveValue = TapticEngine()
 }
