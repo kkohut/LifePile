@@ -68,6 +68,7 @@ struct TodosView: View {
                         .font(.largeTitle)
                     Spacer()
                 }
+                .padding()
                 
                 GeometryReader { geometry in
                     ScrollView {
@@ -97,7 +98,6 @@ struct TodosView: View {
                     }
                 }
             }
-            .padding()
         }
     }
 }

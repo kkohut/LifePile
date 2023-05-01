@@ -74,20 +74,31 @@ struct TodoView: View {
             HStack {
                 if viewStore.dragState == .delete {
                     Image(systemName: "x.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 20)
                 }
                 
-                TextField("", text: viewStore.binding(get: \.title,
-                                                      send: Todo.Action.titleChanged))
+                TextField("",
+                          text: viewStore.binding(get: \.title,
+                                                      send: Todo.Action.titleChanged),
+                          axis: .vertical)
+                .lineLimit(1...3)
+                .multilineTextAlignment(.center)
+                .frame(minWidth: 0, maxWidth: 180)
+                .font(.headline)
+                .fontWeight(.semibold)
                 
                 if viewStore.dragState == .done {
                     Image(systemName: "checkmark.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 20)
                 }
             }
-            .frame(height: 16)
             .padding(.horizontal)
             .padding(.vertical, 10)
             .foregroundColor(.white)
-            .fixedSize()
             .background(Capsule().fill(color(of: viewStore.dragState)))
             .offset(x: viewStore.offset)
             .gesture(
@@ -100,6 +111,7 @@ struct TodoView: View {
                     }
             )
             .animation(.linear, value: viewStore.offset)
+            .animation(.linear(duration: 0.1), value: viewStore.dragState)
         }
     }
     
