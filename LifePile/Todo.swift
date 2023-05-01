@@ -68,6 +68,7 @@ struct Todo: ReducerProtocol {
 
 struct TodoView: View {
     let store: StoreOf<Todo>
+    @FocusState var isFocused: Bool
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -85,9 +86,21 @@ struct TodoView: View {
                           axis: .vertical)
                 .lineLimit(1...3)
                 .multilineTextAlignment(.center)
+//                .textSelection(.enabled)
                 .frame(minWidth: 0, maxWidth: 180)
                 .font(.headline)
                 .fontWeight(.semibold)
+                .focused($isFocused)
+                .onAppear {
+                    isFocused = false
+                }
+                
+                if isFocused {
+                    Button("Save") {
+                        isFocused = false
+                    }
+                    .bold()
+                }
                 
                 if viewStore.dragState == .done {
                     Image(systemName: "checkmark.circle")
@@ -110,6 +123,9 @@ struct TodoView: View {
                         viewStore.send(.dragEnded)
                     }
             )
+            .onTapGesture {
+                isFocused = true
+            }
             .animation(.linear, value: viewStore.offset)
             .animation(.linear(duration: 0.1), value: viewStore.dragState)
         }
