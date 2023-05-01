@@ -1,70 +1,12 @@
 //
-//  Todo.swift
+//  TodoView.swift
 //  LifePile
 //
-//  Created by Kevin Kohut on 29.04.23.
+//  Created by Kevin Kohut on 01.05.23.
 //
 
 import ComposableArchitecture
 import SwiftUI
-
-struct Todo: ReducerProtocol {
-    struct State: Equatable, Identifiable {
-        let id = UUID()
-        var title: String
-        var offset = 0.0
-        var dragState = DragState.idle
-        
-        enum DragState {
-            case idle
-            case done
-            case delete
-        }
-    }
-    
-    enum Action: Equatable {
-        case offsetChanged(newOffset: Double)
-        case dragEnded
-        case titleChanged(newTitle: String)
-    }
-    
-    func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-        switch action {
-        case .offsetChanged(let newOffset):
-            state.offset = newOffset
-            let originalDragState = state.dragState
-            
-            switch state.offset {
-                case -(Double.infinity)..<(-50.0):
-                state.dragState = .delete
-            case -50.0..<50.0:
-                state.dragState = .idle
-            case 50.0...Double.infinity:
-                state.dragState = .done
-            default:
-                fatalError("Switch over double is not exhaustive")
-            }
-            
-            if originalDragState != state.dragState {
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-            }
-            
-            return .none
-        case .dragEnded:
-            switch state.dragState {
-            case .idle:
-                state.offset = 0
-            case .done, .delete:
-                break
-            }
-            
-            return .none
-        case .titleChanged(let newTitle):
-            state.title = newTitle
-            return .none
-        }
-    }
-}
 
 struct TodoView: View {
     let store: StoreOf<Todo>
@@ -86,7 +28,6 @@ struct TodoView: View {
                           axis: .vertical)
                 .lineLimit(1...3)
                 .multilineTextAlignment(.center)
-//                .textSelection(.enabled)
                 .frame(minWidth: 0, maxWidth: 180)
                 .font(.headline)
                 .fontWeight(.semibold)

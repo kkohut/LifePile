@@ -16,6 +16,9 @@
 		D3D754E729FDB68400550005 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D3D754E629FDB68400550005 /* ComposableArchitecture */; };
 		D3D754E929FDB72900550005 /* Todos.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754E829FDB72900550005 /* Todos.swift */; };
 		D3D754EB29FDB92E00550005 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754EA29FDB92E00550005 /* Todo.swift */; };
+		D3D754F02A0011C700550005 /* TodosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754EF2A0011C700550005 /* TodosView.swift */; };
+		D3D754F22A0011D200550005 /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754F12A0011D200550005 /* TodoView.swift */; };
+		D3D754F42A0012CB00550005 /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754F32A0012CB00550005 /* TapticEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		D3D754D129FD5F9B00550005 /* LifePileUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePileUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D3D754E829FDB72900550005 /* Todos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todos.swift; sourceTree = "<group>"; };
 		D3D754EA29FDB92E00550005 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		D3D754EF2A0011C700550005 /* TodosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosView.swift; sourceTree = "<group>"; };
+		D3D754F12A0011D200550005 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
+		D3D754F32A0012CB00550005 /* TapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +105,8 @@
 		D3D754B229FD5F9900550005 /* LifePile */ = {
 			isa = PBXGroup;
 			children = (
+				D3D754EC2A00119C00550005 /* Todos */,
 				D3D754B329FD5F9900550005 /* LifePileApp.swift */,
-				D3D754E829FDB72900550005 /* Todos.swift */,
-				D3D754EA29FDB92E00550005 /* Todo.swift */,
 				D3D754B729FD5F9B00550005 /* Assets.xcassets */,
 				D3D754B929FD5F9B00550005 /* LifePile.entitlements */,
 				D3D754BA29FD5F9B00550005 /* Preview Content */,
@@ -132,6 +137,26 @@
 				D3D754D129FD5F9B00550005 /* LifePileUITestsLaunchTests.swift */,
 			);
 			path = LifePileUITests;
+			sourceTree = "<group>";
+		};
+		D3D754EC2A00119C00550005 /* Todos */ = {
+			isa = PBXGroup;
+			children = (
+				D3D754E829FDB72900550005 /* Todos.swift */,
+				D3D754EF2A0011C700550005 /* TodosView.swift */,
+				D3D754ED2A0011A400550005 /* Todo */,
+				D3D754F32A0012CB00550005 /* TapticEngine.swift */,
+			);
+			path = Todos;
+			sourceTree = "<group>";
+		};
+		D3D754ED2A0011A400550005 /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+				D3D754EA29FDB92E00550005 /* Todo.swift */,
+				D3D754F12A0011D200550005 /* TodoView.swift */,
+			);
+			path = Todo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +297,9 @@
 			files = (
 				D3D754EB29FDB92E00550005 /* Todo.swift in Sources */,
 				D3D754E929FDB72900550005 /* Todos.swift in Sources */,
+				D3D754F22A0011D200550005 /* TodoView.swift in Sources */,
+				D3D754F02A0011C700550005 /* TodosView.swift in Sources */,
+				D3D754F42A0012CB00550005 /* TapticEngine.swift in Sources */,
 				D3D754B429FD5F9900550005 /* LifePileApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
