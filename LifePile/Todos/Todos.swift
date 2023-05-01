@@ -10,12 +10,7 @@ import Foundation
 
 struct Todos: ReducerProtocol {
     struct State: Equatable {
-        var todos: IdentifiedArrayOf<Todo.State> = [
-            .init(title: "Clean windows"),
-            .init(title: "Read"),
-            .init(title: "Go for a run"),
-            .init(title: "Study algebra"),
-        ]
+        var todos: IdentifiedArrayOf<Todo.State> = []
     }
     
     enum Action: Equatable {
@@ -23,11 +18,14 @@ struct Todos: ReducerProtocol {
         case todo(id: Todo.State.ID, action: Todo.Action)
     }
     
+    
+    @Dependency(\.uuid) var uuid
+    
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
             case .addTodo:
-                state.todos.insert(.init(title: "New Todo"), at: 0)
+                state.todos.insert(.init(title: "New Todo", id: self.uuid()), at: 0)
                 TapticEngine().mediumFeedback()
                 return .none
             case .todo(id: let id, action: .dragEnded):

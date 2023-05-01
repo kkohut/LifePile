@@ -10,8 +10,8 @@ import Foundation
 
 struct Todo: ReducerProtocol {
     struct State: Equatable, Identifiable {
-        let id = UUID()
         var title: String
+        let id: UUID
         var offset = 0.0
         var dragState = DragState.idle
         
