@@ -105,6 +105,7 @@
 		D3D754B229FD5F9900550005 /* LifePile */ = {
 			isa = PBXGroup;
 			children = (
+				D3D754F52A00226000550005 /* Shared */,
 				D3D754EC2A00119C00550005 /* Todos */,
 				D3D754B329FD5F9900550005 /* LifePileApp.swift */,
 				D3D754B729FD5F9B00550005 /* Assets.xcassets */,
@@ -145,7 +146,6 @@
 				D3D754E829FDB72900550005 /* Todos.swift */,
 				D3D754EF2A0011C700550005 /* TodosView.swift */,
 				D3D754ED2A0011A400550005 /* Todo */,
-				D3D754F32A0012CB00550005 /* TapticEngine.swift */,
 			);
 			path = Todos;
 			sourceTree = "<group>";
@@ -157,6 +157,14 @@
 				D3D754F12A0011D200550005 /* TodoView.swift */,
 			);
 			path = Todo;
+			sourceTree = "<group>";
+		};
+		D3D754F52A00226000550005 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				D3D754F32A0012CB00550005 /* TapticEngine.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

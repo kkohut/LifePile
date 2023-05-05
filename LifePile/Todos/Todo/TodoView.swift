@@ -43,7 +43,7 @@ struct TodoView: View {
                     .bold()
                 }
                 
-                if viewStore.dragState == .done {
+                if viewStore.dragState == .complete {
                     Image(systemName: "checkmark.circle")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -78,7 +78,7 @@ struct TodoView: View {
             return .red
         case .idle:
             return .blue
-        case .done:
+        case .complete:
             return .green
         }
     }

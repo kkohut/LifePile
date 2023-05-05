@@ -34,7 +34,7 @@ struct Todos: ReducerProtocol {
                 switch draggedTodo.dragState {
                 case .idle:
                     break
-                case .done, .delete:
+                case .complete, .delete:
                     state.todos.remove(id: id)
                     tapticEngine.mediumFeedback()
                 }

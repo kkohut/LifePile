@@ -17,7 +17,7 @@ struct Todo: ReducerProtocol {
         
         enum DragState {
             case idle
-            case done
+            case complete
             case delete
         }
     }
@@ -28,7 +28,6 @@ struct Todo: ReducerProtocol {
         case titleChanged(newTitle: String)
     }
     
-    
     @Dependency(\.tapticEngine) var tapticEngine
     
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -37,16 +36,7 @@ struct Todo: ReducerProtocol {
             state.offset = newOffset
             let originalDragState = state.dragState
             
-            switch state.offset {
-                case -(Double.infinity)..<(-50.0):
-                state.dragState = .delete
-            case -50.0..<50.0:
-                state.dragState = .idle
-            case 50.0...Double.infinity:
-                state.dragState = .done
-            default:
-                fatalError("Switch over double is not exhaustive")
-            }
+            state.dragState = dragState(for: newOffset)
             
             if originalDragState != state.dragState {
                 tapticEngine.lightFeedback()
@@ -57,7 +47,7 @@ struct Todo: ReducerProtocol {
             switch state.dragState {
             case .idle:
                 state.offset = 0
-            case .done, .delete:
+            case .complete, .delete:
                 break
             }
             
@@ -65,6 +55,20 @@ struct Todo: ReducerProtocol {
         case .titleChanged(let newTitle):
             state.title = newTitle
             return .none
+        }
+    }
+    
+    private func dragState(for offset: Double) -> State.DragState {
+        let threshold = 50.0
+        switch offset {
+        case -(Double.infinity)..<(-threshold):
+            return .delete
+        case -threshold..<threshold:
+            return .idle
+        case threshold...Double.infinity:
+            return .complete
+        default:
+            fatalError("Switch over double is not exhaustive")
         }
     }
 }
