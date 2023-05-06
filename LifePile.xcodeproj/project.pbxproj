@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D315FB6E2A06891100553FA3 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315FB6D2A06891100553FA3 /* Repository.swift */; };
+		D315FB712A068A5A00553FA3 /* TodoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315FB702A068A5A00553FA3 /* TodoRepository.swift */; };
+		D315FB732A068ACB00553FA3 /* TodoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315FB722A068ACB00553FA3 /* TodoDTO.swift */; };
+		D315FB762A06912C00553FA3 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315FB752A06912C00553FA3 /* Storage.swift */; };
+		D315FB792A0692EE00553FA3 /* LifePile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D315FB772A0692EE00553FA3 /* LifePile.xcdatamodeld */; };
+		D315FB7B2A06994200553FA3 /* CoreDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315FB7A2A06994200553FA3 /* CoreDataClient.swift */; };
+		D315FB7D2A06BBFA00553FA3 /* TodoMO+dto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315FB7C2A06BBFA00553FA3 /* TodoMO+dto.swift */; };
 		D3D754B429FD5F9900550005 /* LifePileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754B329FD5F9900550005 /* LifePileApp.swift */; };
 		D3D754B829FD5F9B00550005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3D754B729FD5F9B00550005 /* Assets.xcassets */; };
 		D3D754BC29FD5F9B00550005 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3D754BB29FD5F9B00550005 /* Preview Assets.xcassets */; };
@@ -39,6 +46,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D315FB6D2A06891100553FA3 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		D315FB702A068A5A00553FA3 /* TodoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepository.swift; sourceTree = "<group>"; };
+		D315FB722A068ACB00553FA3 /* TodoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDTO.swift; sourceTree = "<group>"; };
+		D315FB752A06912C00553FA3 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		D315FB782A0692EE00553FA3 /* LifePileModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LifePileModel.xcdatamodel; sourceTree = "<group>"; };
+		D315FB7A2A06994200553FA3 /* CoreDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClient.swift; sourceTree = "<group>"; };
+		D315FB7C2A06BBFA00553FA3 /* TodoMO+dto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoMO+dto.swift"; sourceTree = "<group>"; };
 		D3D754B029FD5F9900550005 /* LifePile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifePile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3D754B329FD5F9900550005 /* LifePileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePileApp.swift; sourceTree = "<group>"; };
 		D3D754B729FD5F9B00550005 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,6 +96,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D315FB6F2A068A4600553FA3 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D315FB742A068B0D00553FA3 /* Todo */,
+				D315FB6D2A06891100553FA3 /* Repository.swift */,
+				D315FB752A06912C00553FA3 /* Storage.swift */,
+				D315FB7A2A06994200553FA3 /* CoreDataClient.swift */,
+				D315FB772A0692EE00553FA3 /* LifePile.xcdatamodeld */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		D315FB742A068B0D00553FA3 /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+				D315FB702A068A5A00553FA3 /* TodoRepository.swift */,
+				D315FB722A068ACB00553FA3 /* TodoDTO.swift */,
+				D315FB7C2A06BBFA00553FA3 /* TodoMO+dto.swift */,
+			);
+			path = Todo;
+			sourceTree = "<group>";
+		};
 		D3D754A729FD5F9900550005 = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +198,7 @@
 		D3D754F52A00226000550005 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D315FB6F2A068A4600553FA3 /* Data */,
 				D3D754F32A0012CB00550005 /* TapticEngine.swift */,
 			);
 			path = Shared;
@@ -306,9 +343,16 @@
 				D3D754EB29FDB92E00550005 /* Todo.swift in Sources */,
 				D3D754E929FDB72900550005 /* Todos.swift in Sources */,
 				D3D754F22A0011D200550005 /* TodoView.swift in Sources */,
+				D315FB7D2A06BBFA00553FA3 /* TodoMO+dto.swift in Sources */,
+				D315FB6E2A06891100553FA3 /* Repository.swift in Sources */,
 				D3D754F02A0011C700550005 /* TodosView.swift in Sources */,
+				D315FB7B2A06994200553FA3 /* CoreDataClient.swift in Sources */,
+				D315FB712A068A5A00553FA3 /* TodoRepository.swift in Sources */,
+				D315FB732A068ACB00553FA3 /* TodoDTO.swift in Sources */,
 				D3D754F42A0012CB00550005 /* TapticEngine.swift in Sources */,
 				D3D754B429FD5F9900550005 /* LifePileApp.swift in Sources */,
+				D315FB762A06912C00553FA3 /* Storage.swift in Sources */,
+				D315FB792A0692EE00553FA3 /* LifePile.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,7 +508,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LifePile/Preview Content\"";
 				DEVELOPMENT_TEAM = 2MT4KUXFG3;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -502,7 +546,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LifePile/Preview Content\"";
 				DEVELOPMENT_TEAM = 2MT4KUXFG3;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -679,6 +723,19 @@
 			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		D315FB772A0692EE00553FA3 /* LifePile.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D315FB782A0692EE00553FA3 /* LifePileModel.xcdatamodel */,
+			);
+			currentVersion = D315FB782A0692EE00553FA3 /* LifePileModel.xcdatamodel */;
+			path = LifePile.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D3D754A829FD5F9900550005 /* Project object */;
 }

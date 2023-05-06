@@ -50,6 +50,9 @@ struct TodosView: View {
                     }
                 }
             }
+            .onAppear {
+                viewStore.send(.populateTodos)
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ struct Todos: ReducerProtocol {
     }
     
     enum Action: Equatable {
+        case populateTodos
         case addTodo
         case todo(id: Todo.State.ID, action: Todo.Action)
     }
@@ -21,15 +22,23 @@ struct Todos: ReducerProtocol {
     
     @Dependency(\.uuid) var uuid
     @Dependency(\.tapticEngine) var tapticEngine
+    @Dependency(\.coreData) var coreData
     
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
+            case .populateTodos:
+                loadTodoDTOs(state: &state)
+                return .none
             case .addTodo:
-                state.todos.insert(.init(title: "New Todo", id: self.uuid()), at: 0)
+                let _ = coreData.todoRepository.insert(newObject: TodoDTO(title: "New Todo", id: self.uuid()))
+                loadTodoDTOs(state: &state)
                 tapticEngine.mediumFeedback()
                 return .none
-            case .todo(id: let id, action: .dragEnded):
+            case .todo(let id, action: .titleChanged(let newTitle)):
+                let _ = coreData.todoRepository.update(updatedObject: TodoDTO(title: newTitle, id: id), id: id)
+                return .none
+            case .todo(let id, action: .dragEnded):
                 let draggedTodo = state.todos.first(where: { $0.id == id })!
                 switch draggedTodo.dragState {
                 case .idle:
@@ -47,5 +56,14 @@ struct Todos: ReducerProtocol {
         .forEach(\.todos, action: /Action.todo(id:action:)) {
             Todo()
         }
+    }
+    
+    private func loadTodoDTOs(state: inout Todos.State) {
+        state.todos = IdentifiedArray(
+            uniqueElements:
+                try! coreData.todoRepository.getAll()
+                .get()
+                .map { Todo.State(title: $0.title, id: $0.id) }
+        )
     }
 }
