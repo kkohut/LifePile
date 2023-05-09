@@ -28,11 +28,11 @@ struct Todos: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .populateTodos:
-                loadTodoDTOs(state: &state)
+                state.todos = loadTodoDTOs()
                 return .none
             case .addTodo:
                 let _ = coreData.todoRepository.insert(newObject: TodoDTO(title: "New Todo", id: self.uuid()))
-                loadTodoDTOs(state: &state)
+                state.todos = loadTodoDTOs()
                 tapticEngine.mediumFeedback()
                 return .none
             case .todo(let id, action: .titleChanged(let newTitle)):
@@ -58,8 +58,8 @@ struct Todos: ReducerProtocol {
         }
     }
     
-    private func loadTodoDTOs(state: inout Todos.State) {
-        state.todos = IdentifiedArray(
+    private func loadTodoDTOs() -> IdentifiedArrayOf<Todo.State> {
+        IdentifiedArray(
             uniqueElements:
                 try! coreData.todoRepository.getAll()
                 .get()

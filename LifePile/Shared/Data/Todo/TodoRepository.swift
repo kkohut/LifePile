@@ -43,6 +43,7 @@ struct TodoRepository: Repository {
         do {
             let fetchResult = try managedObjectContext.fetch(fetchRequest).first!
             fetchResult.title = updatedObject.title
+            try! managedObjectContext.save()
             return.success(true)
         } catch {
             return .failure(error)
