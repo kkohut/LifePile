@@ -32,8 +32,8 @@ struct Todos: ReducerProtocol {
                 return .none
             case .addTodo:
                 let _ = coreData.todoRepository.insert(newObject: TodoDTO(title: "New Todo", id: self.uuid()))
-                state.todos = loadTodoDTOs()
                 tapticEngine.mediumFeedback()
+                state.todos = loadTodoDTOs()
                 return .none
             case .todo(let id, action: .titleChanged(let newTitle)):
                 let _ = coreData.todoRepository.update(updatedObject: TodoDTO(title: newTitle, id: id), id: id)
@@ -44,8 +44,9 @@ struct Todos: ReducerProtocol {
                 case .idle:
                     break
                 case .complete, .delete:
-                    state.todos.remove(id: id)
+                    let _ = coreData.todoRepository.delete(id: id)
                     tapticEngine.mediumFeedback()
+                    state.todos = loadTodoDTOs()
                 }
                 return .none
             case .todo(id: _, action: _):

@@ -49,10 +49,19 @@ struct TodoRepository: Repository {
             return .failure(error)
         }
     }
-//    
-//    func delete(id: UUID) -> Result<Bool, Error> {
-//        <#code#>
-//    }
+    
+    func delete(id: UUID) -> Result<Bool, Error> {
+        let fetchRequest = TodoMO.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id.uuidString)
+        do {
+            let fetchResult = try managedObjectContext.fetch(fetchRequest).first!
+            managedObjectContext.delete(fetchResult)
+            try! managedObjectContext.save()
+            return .success(true)
+        } catch {
+            return .failure(error)
+        }
+    }
 }
 
 enum CoreDataError: Error {

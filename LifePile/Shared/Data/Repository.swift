@@ -18,5 +18,5 @@ protocol Repository {
     
     func update(updatedObject: T, id: UUID) -> Result<Bool, Error>
     
-//    func delete(id: UUID) -> Result<Bool, Error>
+    func delete(id: UUID) -> Result<Bool, Error>
 }
