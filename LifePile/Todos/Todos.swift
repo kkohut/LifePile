@@ -19,7 +19,6 @@ struct Todos: ReducerProtocol {
         case todo(id: Todo.State.ID, action: Todo.Action)
     }
     
-    
     @Dependency(\.uuid) var uuid
     @Dependency(\.tapticEngine) var tapticEngine
     @Dependency(\.coreData) var coreData

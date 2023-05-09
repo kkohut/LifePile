@@ -22,10 +22,6 @@ struct TodoRepository: Repository {
         }
     }
     
-//    func getSingle(with id: UUID) -> Result<TodoDTO, Error> {
-//        <#code#>
-//    }
-//    
     func insert(newObject: TodoDTO) -> Result<Bool, Error> {
         guard let managedObject = NSEntityDescription.insertNewObject(forEntityName: "TodoMO", into: managedObjectContext) as? TodoMO else {
             return .failure(CoreDataError.invalidManagedObjectType)
@@ -64,6 +60,3 @@ struct TodoRepository: Repository {
     }
 }
 
-enum CoreDataError: Error {
-    case invalidManagedObjectType
-}

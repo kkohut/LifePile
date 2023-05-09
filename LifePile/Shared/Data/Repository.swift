@@ -12,8 +12,6 @@ protocol Repository {
     
     func getAll() -> Result<[T], Error>
     
-//    func getSingle(with id: UUID) -> Result<T, Error>
-    
     func insert(newObject: T) -> Result<Bool, Error>
     
     func update(updatedObject: T, id: UUID) -> Result<Bool, Error>
