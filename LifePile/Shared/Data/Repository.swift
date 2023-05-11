@@ -12,9 +12,9 @@ protocol Repository {
     
     func getAll() -> Result<[T], Error>
     
-    func insert(newObject: T) -> Result<Bool, Error>
+    func insert(newObject: T) -> Result<TodoDTO, Error>
     
-    func update(updatedObject: T, id: UUID) -> Result<Bool, Error>
+    func update(to updatedObject: T, id: UUID) -> Result<Bool, Error>
     
     func delete(id: UUID) -> Result<Bool, Error>
 }

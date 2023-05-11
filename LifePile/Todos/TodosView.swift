@@ -28,7 +28,7 @@ struct TodosView: View {
                             Spacer()
                             
                             Button(action: {
-                                viewStore.send(.addTodo)
+                                viewStore.send(.addButtonTapped)
                             }) {
                                 HStack {
                                     Image(systemName: "plus.circle.fill")

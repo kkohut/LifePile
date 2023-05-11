@@ -15,7 +15,7 @@ struct Todos: ReducerProtocol {
     
     enum Action: Equatable {
         case populateTodos
-        case addTodo
+        case addButtonTapped
         case todo(id: Todo.State.ID, action: Todo.Action)
     }
     
@@ -27,15 +27,13 @@ struct Todos: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .populateTodos:
-                state.todos = loadTodoDTOs()
+                state.todos = loadTodos()
                 return .none
-            case .addTodo:
-                let _ = coreData.todoRepository.insert(newObject: TodoDTO(title: "New Todo", id: self.uuid()))
-                tapticEngine.mediumFeedback()
-                state.todos = loadTodoDTOs()
+            case .addButtonTapped:
+                state.todos.insert(addTodo(), at: 0)
                 return .none
             case .todo(let id, action: .titleChanged(let newTitle)):
-                let _ = coreData.todoRepository.update(updatedObject: TodoDTO(title: newTitle, id: id), id: id)
+                updateTodo(with: id, to: newTitle)
                 return .none
             case .todo(let id, action: .dragEnded):
                 let draggedTodo = state.todos.first(where: { $0.id == id })!
@@ -43,9 +41,9 @@ struct Todos: ReducerProtocol {
                 case .idle:
                     break
                 case .complete, .delete:
-                    let _ = coreData.todoRepository.delete(id: id)
-                    tapticEngine.mediumFeedback()
-                    state.todos = loadTodoDTOs()
+                    if deleteTodo(id: id){
+                        state.todos.remove(id: id)
+                    }
                 }
                 return .none
             case .todo(id: _, action: _):
@@ -58,12 +56,30 @@ struct Todos: ReducerProtocol {
         }
     }
     
-    private func loadTodoDTOs() -> IdentifiedArrayOf<Todo.State> {
+    private func loadTodos() -> IdentifiedArrayOf<Todo.State> {
         IdentifiedArray(
             uniqueElements:
                 try! coreData.todoRepository.getAll()
                 .get()
+                .reversed()
                 .map { Todo.State(title: $0.title, id: $0.id) }
         )
+    }
+    
+    private func addTodo() -> Todo.State {
+        tapticEngine.mediumFeedback()
+        return try! coreData.todoRepository
+            .insert(newObject: TodoDTO(title: "New Todo", id: self.uuid()))
+            .get()
+            .state
+    }
+    
+    private func updateTodo(with id: UUID, to newTitle: String) {
+        let _ = coreData.todoRepository.update(to: TodoDTO(title: newTitle, id: id), id: id)
+    }
+    
+    private func deleteTodo(id: UUID) -> Bool {
+        tapticEngine.mediumFeedback()
+        return try! coreData.todoRepository.delete(id: id).get()
     }
 }

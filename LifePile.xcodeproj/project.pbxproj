@@ -14,6 +14,7 @@
 		D315FB792A0692EE00553FA3 /* LifePile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D315FB772A0692EE00553FA3 /* LifePile.xcdatamodeld */; };
 		D315FB7B2A06994200553FA3 /* CoreDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315FB7A2A06994200553FA3 /* CoreDataClient.swift */; };
 		D315FB7D2A06BBFA00553FA3 /* TodoMO+dto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315FB7C2A06BBFA00553FA3 /* TodoMO+dto.swift */; };
+		D34FC72C2A0D875900D5479C /* TodoDTO+state.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34FC72B2A0D875900D5479C /* TodoDTO+state.swift */; };
 		D3623AF42A0A61000050BAC6 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3623AF32A0A61000050BAC6 /* CoreDataError.swift */; };
 		D3D754B429FD5F9900550005 /* LifePileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754B329FD5F9900550005 /* LifePileApp.swift */; };
 		D3D754B829FD5F9B00550005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3D754B729FD5F9B00550005 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		D315FB782A0692EE00553FA3 /* LifePileModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LifePileModel.xcdatamodel; sourceTree = "<group>"; };
 		D315FB7A2A06994200553FA3 /* CoreDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClient.swift; sourceTree = "<group>"; };
 		D315FB7C2A06BBFA00553FA3 /* TodoMO+dto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoMO+dto.swift"; sourceTree = "<group>"; };
+		D34FC72B2A0D875900D5479C /* TodoDTO+state.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoDTO+state.swift"; sourceTree = "<group>"; };
 		D3623AF32A0A61000050BAC6 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		D3D754B029FD5F9900550005 /* LifePile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifePile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3D754B329FD5F9900550005 /* LifePileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePileApp.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 			children = (
 				D3D754E829FDB72900550005 /* Todos.swift */,
 				D3D754EF2A0011C700550005 /* TodosView.swift */,
+				D34FC72B2A0D875900D5479C /* TodoDTO+state.swift */,
 				D3D754ED2A0011A400550005 /* Todo */,
 			);
 			path = Todos;
@@ -343,6 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D34FC72C2A0D875900D5479C /* TodoDTO+state.swift in Sources */,
 				D3D754EB29FDB92E00550005 /* Todo.swift in Sources */,
 				D3D754E929FDB72900550005 /* Todos.swift in Sources */,
 				D3D754F22A0011D200550005 /* TodoView.swift in Sources */,

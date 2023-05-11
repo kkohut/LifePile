@@ -22,23 +22,23 @@ struct TodoRepository: Repository {
         }
     }
     
-    func insert(newObject: TodoDTO) -> Result<Bool, Error> {
-        guard let managedObject = NSEntityDescription.insertNewObject(forEntityName: "TodoMO", into: managedObjectContext) as? TodoMO else {
+    func insert(newObject: TodoDTO) -> Result<TodoDTO, Error> {
+        guard let todoMO = NSEntityDescription.insertNewObject(forEntityName: "TodoMO", into: managedObjectContext) as? TodoMO else {
             return .failure(CoreDataError.invalidManagedObjectType)
         }
-        managedObject.id = newObject.id
-        managedObject.title = newObject.title
+        todoMO.id = newObject.id
+        todoMO.title = newObject.title
         try! managedObjectContext.save()
-        return .success(true)
+        return .success(todoMO.dto)
     }
     
-    func update(updatedObject: TodoDTO, id: UUID) -> Result<Bool, Error> {
+    func update(to updatedObject: TodoDTO, id: UUID) -> Result<Bool, Error> {
         let fetchRequest = TodoMO.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", id.uuidString)
         
         do {
-            let fetchResult = try managedObjectContext.fetch(fetchRequest).first!
-            fetchResult.title = updatedObject.title
+            let fetchedTodoMO = try managedObjectContext.fetch(fetchRequest).first!
+            fetchedTodoMO.title = updatedObject.title
             try! managedObjectContext.save()
             return.success(true)
         } catch {

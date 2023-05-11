@@ -53,7 +53,12 @@ struct TodoView: View {
             .padding(.horizontal)
             .padding(.vertical, 10)
             .foregroundColor(.white)
-            .background(Capsule().fill(color(of: viewStore.dragState)))
+            .background {
+                Capsule()
+                    .fill(color(of: viewStore.dragState))
+                    .brightness(isFocused ? 0.1 : 0)
+                    .shadow(radius: isFocused ? 10 : 0)
+            }
             .offset(x: viewStore.offset)
             .gesture(
                 DragGesture()
@@ -69,6 +74,7 @@ struct TodoView: View {
             }
             .animation(.linear, value: viewStore.offset)
             .animation(.linear(duration: 0.1), value: viewStore.dragState)
+            .animation(.spring(), value: isFocused)
         }
     }
     
