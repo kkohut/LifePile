@@ -11,10 +11,13 @@ import Foundation
 struct Todos: ReducerProtocol {
     struct State: Equatable {
         var todos: IdentifiedArrayOf<Todo.State> = []
+        var filter: CompletionStatus? = .todo
     }
     
     enum Action: Equatable {
         case populateTodos
+        case todoFilterTapped
+        case doneFilterTapped
         case addButtonTapped
         case todo(id: Todo.State.ID, action: Todo.Action)
     }
@@ -26,15 +29,29 @@ struct Todos: ReducerProtocol {
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
+                
             case .populateTodos:
-                state.todos = loadTodos()
+                state.todos = loadTodos(filterBy: state.filter)
                 return .none
+                
+            case .todoFilterTapped:
+                state.filter = .todo
+                state.todos = loadTodos(filterBy: state.filter)
+                return .none
+                
+            case .doneFilterTapped:
+                state.filter = .done
+                state.todos = loadTodos(filterBy: state.filter)
+                return .none
+                
             case .addButtonTapped:
                 state.todos.insert(addTodo(), at: 0)
                 return .none
+                
             case .todo(let id, action: .titleChanged(let newTitle)):
                 let _ = updateTitle(of: state.todos.first(where: { $0.id == id })!, to: newTitle)
                 return .none
+                
             case .todo(let id, action: .dragEnded):
                 let draggedTodo = state.todos.first(where: { $0.id == id })!
                 
@@ -54,21 +71,22 @@ struct Todos: ReducerProtocol {
                 }
                 
                 return .none
+                
             case .todo(id: _, action: _):
                 return .none
             }
-            
         }
         .forEach(\.todos, action: /Action.todo(id:action:)) {
             Todo()
         }
     }
     
-    private func loadTodos() -> IdentifiedArrayOf<Todo.State> {
+    private func loadTodos(filterBy completionStatus: CompletionStatus?) -> IdentifiedArrayOf<Todo.State> {
         IdentifiedArray(
             uniqueElements:
                 try! coreData.todoRepository.getAll()
                 .get()
+                .filter { $0.completionStatus == completionStatus }
                 .reversed()
                 .map { Todo.State(title: $0.title, id: $0.id) }
         )

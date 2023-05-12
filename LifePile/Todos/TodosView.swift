@@ -19,6 +19,20 @@ struct TodosView: View {
                     Text("\(viewStore.todos.count) Todos")
                         .font(.largeTitle)
                     Spacer()
+                    
+                    Group {
+                        Button("Todo") {
+                            viewStore.send(.todoFilterTapped)
+                        }
+                        .tint(.accentColor.opacity(viewStore.filter == .todo ? 1.0 : 0.3))
+                        
+                        Button("Done") {
+                            viewStore.send(.doneFilterTapped)
+                        }
+                        .tint(.accentColor.opacity(viewStore.filter == .done ? 1.0 : 0.3))
+                    }
+                    .buttonBorderShape(.roundedRectangle)
+                    .buttonStyle(.bordered)
                 }
                 .padding()
                 
@@ -27,19 +41,21 @@ struct TodosView: View {
                         VStack {
                             Spacer()
                             
-                            Button(action: {
-                                viewStore.send(.addButtonTapped)
-                            }) {
-                                HStack {
-                                    Image(systemName: "plus.circle.fill")
-                                    Text("Add task")
-                                        .bold()
+                            if viewStore.filter == .todo {
+                                Button(action: {
+                                    viewStore.send(.addButtonTapped)
+                                }) {
+                                    HStack {
+                                        Image(systemName: "plus.circle.fill")
+                                        Text("Add task")
+                                            .bold()
+                                    }
                                 }
+                                .buttonStyle(.bordered)
+                                .buttonBorderShape(.capsule)
+                                .tint(.green)
+                                .compositingGroup()
                             }
-                            .buttonStyle(.bordered)
-                            .buttonBorderShape(.capsule)
-                            .tint(.green)
-                            .compositingGroup()
                             
                             ForEachStore(self.store.scope(state: \.todos, action: Todos.Action.todo(id:action:))) {
                                 TodoView(store: $0)
@@ -55,6 +71,10 @@ struct TodosView: View {
             }
         }
     }
+    
+//    private func buttonStyle(for filter: CompletionStatus) -> ButtonStyle {
+//        switch
+//    }
 }
 
 struct TodosView_Previews: PreviewProvider {
