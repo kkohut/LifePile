@@ -16,6 +16,10 @@ struct TapticEngine {
     func mediumFeedback() {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
+    
+    func heavyFeedback() {
+        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+    }
 }
 
 extension DependencyValues {

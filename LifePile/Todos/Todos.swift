@@ -33,18 +33,26 @@ struct Todos: ReducerProtocol {
                 state.todos.insert(addTodo(), at: 0)
                 return .none
             case .todo(let id, action: .titleChanged(let newTitle)):
-                updateTodo(with: id, to: newTitle)
+                let _ = updateTitle(of: state.todos.first(where: { $0.id == id })!, to: newTitle)
                 return .none
             case .todo(let id, action: .dragEnded):
                 let draggedTodo = state.todos.first(where: { $0.id == id })!
+                
+                var removed = false
+                
                 switch draggedTodo.dragState {
                 case .idle:
                     break
-                case .complete, .delete:
-                    if deleteTodo(id: id){
-                        state.todos.remove(id: id)
-                    }
+                case .complete:
+                    removed = complete(todo: draggedTodo)
+                case .delete:
+                    removed = delete(todo: draggedTodo)
                 }
+                
+                if removed {
+                    state.todos.remove(id: id)
+                }
+                
                 return .none
             case .todo(id: _, action: _):
                 return .none
@@ -69,17 +77,28 @@ struct Todos: ReducerProtocol {
     private func addTodo() -> Todo.State {
         tapticEngine.mediumFeedback()
         return try! coreData.todoRepository
-            .insert(newObject: TodoDTO(title: "New Todo", id: self.uuid()))
+            .insert(newObject: TodoDTO(title: "New Todo", id: self.uuid(), completionStatus: .todo))
             .get()
             .state
     }
     
-    private func updateTodo(with id: UUID, to newTitle: String) {
-        let _ = coreData.todoRepository.update(to: TodoDTO(title: newTitle, id: id), id: id)
+    private func updateTitle(of todo: Todo.State, to title: String) -> Bool {
+        return try! coreData.todoRepository
+            .update(to: TodoDTO(title: title, id: todo.id, completionStatus: .todo), id: todo.id)
+            .get()
     }
     
-    private func deleteTodo(id: UUID) -> Bool {
+    private func complete(todo: Todo.State) -> Bool {
+        tapticEngine.heavyFeedback()
+        return try! coreData.todoRepository
+            .update(to: TodoDTO(title: todo.title, id: todo.id, completionStatus: .done), id: todo.id)
+            .get()
+    }
+    
+    private func delete(todo: Todo.State) -> Bool {
         tapticEngine.mediumFeedback()
-        return try! coreData.todoRepository.delete(id: id).get()
+        return try! coreData.todoRepository
+            .delete(id: todo.id)
+            .get()
     }
 }

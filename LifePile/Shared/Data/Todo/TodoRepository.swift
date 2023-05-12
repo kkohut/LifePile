@@ -28,6 +28,7 @@ struct TodoRepository: Repository {
         }
         todoMO.id = newObject.id
         todoMO.title = newObject.title
+        todoMO.completionStatus = newObject.completionStatus.rawValue
         try! managedObjectContext.save()
         return .success(todoMO.dto)
     }
@@ -39,6 +40,7 @@ struct TodoRepository: Repository {
         do {
             let fetchedTodoMO = try managedObjectContext.fetch(fetchRequest).first!
             fetchedTodoMO.title = updatedObject.title
+            fetchedTodoMO.completionStatus = updatedObject.completionStatus.rawValue
             try! managedObjectContext.save()
             return.success(true)
         } catch {

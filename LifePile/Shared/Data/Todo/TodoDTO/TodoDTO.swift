@@ -10,4 +10,5 @@ import Foundation
 struct TodoDTO: Identifiable {
     let title: String
     let id: UUID
+    let completionStatus: CompletionStatus
 }
