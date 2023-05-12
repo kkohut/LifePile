@@ -71,10 +71,6 @@ struct TodosView: View {
             }
         }
     }
-    
-//    private func buttonStyle(for filter: CompletionStatus) -> ButtonStyle {
-//        switch
-//    }
 }
 
 struct TodosView_Previews: PreviewProvider {
