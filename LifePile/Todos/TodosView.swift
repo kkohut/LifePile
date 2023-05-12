@@ -16,7 +16,7 @@ struct TodosView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack {
                 HStack {
-                    Text("\(viewStore.todos.count) Todos")
+                    Text("\(viewStore.todos.count) \(viewStore.filter == .todo ? "Todos" : "Done")")
                         .font(.largeTitle)
                     Spacer()
                     
