@@ -39,10 +39,12 @@ struct Todo: ReducerProtocol {
             state.dragState = dragState(for: newOffset)
             
             if originalDragState != state.dragState {
-                tapticEngine.lightFeedback()
+                return .fireAndForget {
+                    tapticEngine.lightFeedback()
+                }
+            } else {
+                return .none
             }
-            
-            return .none
         case .dragEnded:
             switch state.dragState {
             case .idle:
