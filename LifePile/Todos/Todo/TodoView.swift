@@ -40,6 +40,7 @@ struct TodoView: View {
                     Button("Save") {
                         isFocused = false
                     }
+                    .buttonStyle(.bordered)
                     .bold()
                 }
                 
@@ -54,7 +55,7 @@ struct TodoView: View {
             .padding(.vertical, 10)
             .foregroundColor(.white)
             .background {
-                Capsule()
+                RoundedRectangle(cornerRadius: 16)
                     .fill(color(of: viewStore.dragState))
                     .brightness(isFocused ? 0.1 : 0)
                     .shadow(radius: isFocused ? 10 : 0)
@@ -83,7 +84,7 @@ struct TodoView: View {
         case .delete:
             return .red
         case .idle:
-            return .blue
+            return .accentColor
         case .complete:
             return .green
         }

@@ -45,6 +45,7 @@ struct Todo: ReducerProtocol {
             } else {
                 return .none
             }
+            
         case .dragEnded:
             switch state.dragState {
             case .idle:
@@ -54,6 +55,7 @@ struct Todo: ReducerProtocol {
             }
             
             return .none
+            
         case .titleChanged(let newTitle):
             state.title = newTitle
             return .none
