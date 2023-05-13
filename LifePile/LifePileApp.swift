@@ -14,7 +14,7 @@ struct LifePileApp: App {
         WindowGroup {
             TodosView(
                 store: Store(
-                    initialState: Todos.State(),
+                    initialState: Todos.State(todos: [], filter: .todo),
                     reducer: Todos()
                 )
             )

@@ -67,7 +67,7 @@ struct TodosView: View {
                 }
             }
             .onAppear {
-                viewStore.send(.populateTodos)
+                viewStore.send(.populate)
             }
         }
     }
@@ -76,7 +76,7 @@ struct TodosView: View {
 struct TodosView_Previews: PreviewProvider {
     static var previews: some View {
         TodosView(store: Store(
-            initialState: Todos.State(),
+            initialState: Todos.State(todos: [], filter: .todo),
             reducer: Todos())
         )
     }
