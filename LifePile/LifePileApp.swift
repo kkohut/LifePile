@@ -18,6 +18,10 @@ struct LifePileApp: App {
                     reducer: Todos()
                 )
             )
+            .background {
+                Color.Custom.background
+                    .edgesIgnoringSafeArea(.all)
+            }
         }
     }
 }
