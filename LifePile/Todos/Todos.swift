@@ -111,7 +111,7 @@ struct Todos: ReducerProtocol {
                 .get()
                 .filter { $0.completionStatus == completionStatus }
                 .reversed()
-                .map { Todo.State(title: $0.title, id: $0.id) }
+                .map { Todo.State(title: $0.title, completionStatus: $0.completionStatus, id: $0.id) }
         )
     }
     

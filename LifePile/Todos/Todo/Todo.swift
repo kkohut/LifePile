@@ -11,6 +11,7 @@ import Foundation
 struct Todo: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var title: String
+        var completionStatus: CompletionStatus
         let id: UUID
         var offset = 0.0
         var dragState = DragState.idle
@@ -33,6 +34,10 @@ struct Todo: ReducerProtocol {
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .offsetChanged(let newOffset):
+            guard state.completionStatus != .done else {
+                return .none
+            }
+            
             state.offset = newOffset
             let originalDragState = state.dragState
             
@@ -42,9 +47,9 @@ struct Todo: ReducerProtocol {
                 return .fireAndForget {
                     tapticEngine.lightFeedback()
                 }
-            } else {
-                return .none
             }
+            
+            return .none
             
         case .dragEnded:
             switch state.dragState {
