@@ -16,8 +16,9 @@ struct TodosView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack {
                 HStack {
-                    Text("\(viewStore.todos.count) \(viewStore.filter == .todo ? "Todos" : "Done")")
+                    Text("\(viewStore.todos.count) \(viewStore.filter == .todo ? (viewStore.todos.count != 1 ? "Todos" : "Todo") : "Done")")
                         .font(.largeTitle)
+                    
                     Spacer()
                     
                     Group {
@@ -67,20 +68,16 @@ struct TodosView: View {
                 }
             }
             .onAppear {
-                viewStore.send(.populateTodos)
+                viewStore.send(.populate)
             }
         }
     }
-    
-//    private func buttonStyle(for filter: CompletionStatus) -> ButtonStyle {
-//        switch
-//    }
 }
 
 struct TodosView_Previews: PreviewProvider {
     static var previews: some View {
         TodosView(store: Store(
-            initialState: Todos.State(),
+            initialState: Todos.State(todos: [], filter: .todo),
             reducer: Todos())
         )
     }

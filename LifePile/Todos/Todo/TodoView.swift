@@ -36,10 +36,11 @@ struct TodoView: View {
                     isFocused = false
                 }
                 
-                if isFocused {
+                if isFocused && viewStore.completionStatus != .done {
                     Button("Save") {
                         isFocused = false
                     }
+                    .buttonStyle(.bordered)
                     .bold()
                 }
                 
@@ -50,12 +51,14 @@ struct TodoView: View {
                         .frame(height: 20)
                 }
             }
+            .disabled(viewStore.completionStatus == .done)
             .padding(.horizontal)
             .padding(.vertical, 10)
             .foregroundColor(.white)
             .background {
-                Capsule()
-                    .fill(color(of: viewStore.dragState))
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(color(of: viewStore.dragState)
+                        .opacity(viewStore.completionStatus != .done ? 1 : 0.5))
                     .brightness(isFocused ? 0.1 : 0)
                     .shadow(radius: isFocused ? 10 : 0)
             }
@@ -83,7 +86,7 @@ struct TodoView: View {
         case .delete:
             return .red
         case .idle:
-            return .blue
+            return .accentColor
         case .complete:
             return .green
         }
@@ -92,7 +95,7 @@ struct TodoView: View {
 
 struct TodoView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoView(store: Store(initialState: Todo.State(title: "Clean room", id: UUID()),
+        TodoView(store: Store(initialState: Todo.State(title: "Clean room", completionStatus: .todo, id: UUID()),
                               reducer: Todo()))
     }
 }
