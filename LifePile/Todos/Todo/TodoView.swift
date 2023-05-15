@@ -28,6 +28,7 @@ struct TodoView: View {
                           axis: .vertical)
                 .lineLimit(1...3)
                 .multilineTextAlignment(.center)
+                .textFieldStyle(.plain)
                 .frame(minWidth: 0, maxWidth: 180)
                 .font(.headline)
                 .fontWeight(.semibold)
