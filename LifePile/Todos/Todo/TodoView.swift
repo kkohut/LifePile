@@ -30,7 +30,7 @@ struct TodoView: View {
                 .multilineTextAlignment(.center)
                 .textFieldStyle(.plain)
                 .frame(minWidth: 0, maxWidth: 180)
-                .font(.headline)
+                .font(.customHeadline)
                 .fontWeight(.semibold)
                 .focused($isFocused)
                 .onAppear {

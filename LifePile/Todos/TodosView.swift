@@ -17,7 +17,7 @@ struct TodosView: View {
             VStack {
                 HStack {
                     Text("\(viewStore.todos.count) \(viewStore.filter == .todo ? (viewStore.todos.count != 1 ? "Todos" : "Todo") : "Done")")
-                        .font(.largeTitle)
+                        .font(.customLargeTitle)
                     
                     Spacer()
                     
@@ -73,8 +73,8 @@ struct TodosView: View {
             }
             .sheet(isPresented: viewStore.binding(get: { $0.isShowingCreationSheet },
                                                   send: Todos.Action.setCreationSheet(isPresented:))) {
-                IfLetStore(self.store.scope(state: { $0.todoInCreation },
-                                            action: { _ in .populate }),
+                IfLetStore(self.store.scope(state: \.todoInCreation,
+                                            action: Todos.Action.todoInCreation),     //TODO: correct func
                            then: CreateTodoView.init(store:)
                 )
             }

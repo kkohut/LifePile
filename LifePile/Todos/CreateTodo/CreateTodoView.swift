@@ -13,17 +13,28 @@ struct CreateTodoView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack(alignment: .leading) {
+            VStack {
                 HStack {
                     Text(viewStore.title)
-                        .font(.largeTitle)
+                        .font(.customLargeTitle)
                     
                     Spacer()
                 }
                 
-                Text(viewStore.completionStatus.rawValue)
+                HStack {
+                    Text(viewStore.completionStatus.rawValue)
+                        .font(.customBody)
+                    
+                    Spacer()
+                }
                 
                 Spacer()
+                
+                Button("Save Todo") {
+                    viewStore.send(.saveButtonTapped)
+                }
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.roundedRectangle(radius: 16))
             }
             .padding()
         }
@@ -32,6 +43,7 @@ struct CreateTodoView: View {
 
 struct CreateTodoView_Previews: PreviewProvider {
     static var previews: some View {
+        CreateTodoView(store: Store(initialState: Todo.State(title: "New Todo", completionStatus: .todo, id: UUID()), reducer: Todo()))
         CreateTodoView(store: Store(initialState: Todo.State(title: "New Todo", completionStatus: .todo, id: UUID()),
                                     reducer: Todo()))
     }

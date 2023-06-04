@@ -26,6 +26,7 @@ struct Todos: ReducerProtocol {
         case updateTodoInCreation(updatedTodo: TodoDTO)
         case add(todo: Todo.State)
         case todo(id: Todo.State.ID, action: Todo.Action)
+        case todoInCreation(Todo.Action)
         case remove(todo: Todo.State)
     }
     
@@ -59,11 +60,9 @@ struct Todos: ReducerProtocol {
                 
             case .addButtonTapped:
                 state.todoInCreation = Todo.State(title: "New Todo", completionStatus: .todo, id: uuid())
-                    state.isShowingCreationSheet = true
-                
-                return .run { send in
+                state.isShowingCreationSheet = true
+                return .run { _ in
                     tapticEngine.mediumFeedback()
-                    await send(.add(todo: try! addTodo().get().state))
                 }
                 
             case .setCreationSheet(isPresented: true):
@@ -110,15 +109,31 @@ struct Todos: ReducerProtocol {
                     }
                 }
                 
-            case let .remove(todo):
-                state.todos.remove(todo)
-                return .none
                 
             case .todo(id: _, action: _):
+                return .none
+
+            case .todoInCreation:
+                return .none
+                
+//            case .saveButtonTapped:
+//                guard let todoInCreation = state.todoInCreation else {
+//                    return .none
+//                }
+//                
+//                return .run { send in
+//                    _ = add(todo: todoInCreation.dto)
+//                    await send(.populate)
+//                }
+            case let .remove(todo):
+                state.todos.remove(todo)
                 return .none
             }
         }
         .forEach(\.todos, action: /Action.todo(id:action:)) {
+            Todo()
+        }
+        .ifLet(\.todoInCreation, action: /Action.todoInCreation) {
             Todo()
         }
     }
@@ -134,10 +149,8 @@ struct Todos: ReducerProtocol {
         )
     }
     
-    private func addTodo() -> Result<TodoDTO, Error> {
-        coreData.todoRepository.insert(newObject: TodoDTO(title: "New Todo",
-                                                          id: self.uuid(),
-                                                          completionStatus: .todo))
+    private func add(todo: TodoDTO) -> Result<TodoDTO, Error> {
+        coreData.todoRepository.insert(newObject: todo)
     }
     
     private func updateTitle(of todo: Todo.State, to title: String) -> Result<Bool, Error> {

@@ -21,12 +21,17 @@ struct Todo: ReducerProtocol {
             case complete
             case delete
         }
+        
+        var dto: TodoDTO {
+            TodoDTO(title: title, id: id, completionStatus: completionStatus)
+        }
     }
     
     enum Action: Equatable {
         case offsetChanged(newOffset: Double)
         case dragEnded
         case titleChanged(newTitle: String)
+        case saveButtonTapped
     }
     
     @Dependency(\.tapticEngine) var tapticEngine
@@ -63,6 +68,9 @@ struct Todo: ReducerProtocol {
             
         case .titleChanged(let newTitle):
             state.title = newTitle
+            return .none
+            
+        case .saveButtonTapped:
             return .none
         }
     }

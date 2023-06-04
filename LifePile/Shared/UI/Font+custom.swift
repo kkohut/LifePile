@@ -9,8 +9,8 @@ import SwiftUI
 import Foundation
 
 extension Font {
-    static let largeTitle = Font.custom(customFont, size: 34, relativeTo: .largeTitle)
-    static let headline = Font.custom(customFont, size: 17, relativeTo: .headline)
-    static let body = Font.custom(customFont, size: 17, relativeTo: .body)
+    static let customLargeTitle = Font.custom(customFont, size: 34, relativeTo: .largeTitle)
+    static let customHeadline = Font.custom(customFont, size: 17, relativeTo: .headline)
+    static let customBody = Font.custom(customFont, size: 17, relativeTo: .body)
     private static let customFont = "GillSans"
 }
