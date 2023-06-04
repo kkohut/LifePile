@@ -12,6 +12,8 @@ struct Todos: ReducerProtocol {
     struct State: Equatable {
         var todos: IdentifiedArrayOf<Todo.State>
         var filter: CompletionStatus
+        var todoInCreation: Todo.State?
+        var isShowingCreationSheet: Bool
     }
     
     enum Action: Equatable {
@@ -20,6 +22,8 @@ struct Todos: ReducerProtocol {
         case populate
         case populateWith(todos: IdentifiedArrayOf<Todo.State>)
         case addButtonTapped
+        case setCreationSheet(isPresented: Bool)
+        case updateTodoInCreation(updatedTodo: TodoDTO)
         case add(todo: Todo.State)
         case todo(id: Todo.State.ID, action: Todo.Action)
         case remove(todo: Todo.State)
@@ -54,10 +58,25 @@ struct Todos: ReducerProtocol {
                 return .none
                 
             case .addButtonTapped:
+                state.todoInCreation = Todo.State(title: "New Todo", completionStatus: .todo, id: uuid())
+                    state.isShowingCreationSheet = true
+                
                 return .run { send in
-                    await send(.add(todo: try! addTodo().get().state))
                     tapticEngine.mediumFeedback()
+                    await send(.add(todo: try! addTodo().get().state))
                 }
+                
+            case .setCreationSheet(isPresented: true):
+                state.isShowingCreationSheet = true
+                return .none
+                
+            case .setCreationSheet(isPresented: false):
+                state.isShowingCreationSheet = false
+                return .none
+                
+            case let .updateTodoInCreation(updatedTodo):
+                state.todoInCreation = updatedTodo.state
+                return .none
                 
             case let .add(todo):
                 state.todos.insert(todo, at: 0)
