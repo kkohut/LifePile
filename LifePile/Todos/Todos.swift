@@ -116,22 +116,26 @@ struct Todos: ReducerProtocol {
     }
     
     private func addTodo() -> Result<TodoDTO, Error> {
-        return coreData.todoRepository
-            .insert(newObject: TodoDTO(title: "New Todo", id: self.uuid(), completionStatus: .todo))
+        coreData.todoRepository.insert(newObject: TodoDTO(title: "New Todo",
+                                                          id: self.uuid(),
+                                                          completionStatus: .todo))
     }
     
     private func updateTitle(of todo: Todo.State, to title: String) -> Result<Bool, Error> {
-        return coreData.todoRepository
-            .update(to: TodoDTO(title: title, id: todo.id, completionStatus: .todo), id: todo.id)
+        coreData.todoRepository.update(to: TodoDTO(title: title,
+                                                   id: todo.id,
+                                                   completionStatus: .todo),
+                                       id: todo.id)
     }
     
     private func complete(todo: Todo.State) -> Result<Bool, Error> {
-        return coreData.todoRepository
-            .update(to: TodoDTO(title: todo.title, id: todo.id, completionStatus: .done), id: todo.id)
+        coreData.todoRepository.update(to: TodoDTO(title: todo.title,
+                                                   id: todo.id,
+                                                   completionStatus: .done),
+                                       id: todo.id)
     }
     
     private func delete(todo: Todo.State) -> Result<Bool, Error> {
-        return coreData.todoRepository
-            .delete(id: todo.id)
+        coreData.todoRepository.delete(id: todo.id)
     }
 }

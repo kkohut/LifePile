@@ -34,6 +34,7 @@ struct TodosView: View {
                     }
                     .buttonBorderShape(.roundedRectangle)
                     .buttonStyle(.bordered)
+                    .bold()
                 }
                 .padding()
                 
@@ -53,7 +54,7 @@ struct TodosView: View {
                                     }
                                 }
                                 .buttonStyle(.bordered)
-                                .buttonBorderShape(.capsule)
+                                .buttonBorderShape(.roundedRectangle)
                                 .tint(.green)
                                 .compositingGroup()
                             }
