@@ -33,6 +33,7 @@
 		D3D754F02A0011C700550005 /* TodosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754EF2A0011C700550005 /* TodosView.swift */; };
 		D3D754F22A0011D200550005 /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754F12A0011D200550005 /* TodoView.swift */; };
 		D3D754F42A0012CB00550005 /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754F32A0012CB00550005 /* TapticEngine.swift */; };
+		D3E83C322A38C5C2006B05F1 /* TagDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E83C312A38C5C2006B05F1 /* TagDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		D3D754EF2A0011C700550005 /* TodosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosView.swift; sourceTree = "<group>"; };
 		D3D754F12A0011D200550005 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		D3D754F32A0012CB00550005 /* TapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
+		D3E83C312A38C5C2006B05F1 /* TagDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 			children = (
 				D315FB722A068ACB00553FA3 /* TodoDTO.swift */,
 				D3CC30FC2A0EE41200457B9C /* CompletionStatus.swift */,
+				D3E83C312A38C5C2006B05F1 /* TagDTO.swift */,
 			);
 			path = TodoDTO;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				D3AFD6862A2CEA5C00B10DB1 /* TodoForm.swift in Sources */,
 				D3AFD6842A2C2BF900B10DB1 /* TodoFormView.swift in Sources */,
 				D3CC30FD2A0EE41200457B9C /* CompletionStatus.swift in Sources */,
+				D3E83C322A38C5C2006B05F1 /* TagDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,7 +585,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.kkohut.LifePile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -621,7 +625,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.kkohut.LifePile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -767,7 +771,7 @@
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.0;
+				version = 0.54.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

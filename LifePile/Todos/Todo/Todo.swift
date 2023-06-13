@@ -15,6 +15,7 @@ struct Todo: ReducerProtocol {
         let id: UUID
         var offset = 0.0
         var dragState = DragState.idle
+        let tag: TagDTO?
         
         enum DragState {
             case idle
@@ -23,7 +24,7 @@ struct Todo: ReducerProtocol {
         }
         
         var dto: TodoDTO {
-            TodoDTO(title: title, id: id, completionStatus: completionStatus)
+            TodoDTO(title: title, id: id, completionStatus: completionStatus, tag: tag)
         }
     }
     

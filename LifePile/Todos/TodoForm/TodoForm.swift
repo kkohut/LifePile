@@ -13,9 +13,10 @@ struct TodoForm: ReducerProtocol {
         var id: UUID
         var title: String
         var completionStatus: CompletionStatus
+        var tag: TagDTO?
         
         var dto: TodoDTO {
-            TodoDTO(title: title, id: id, completionStatus: completionStatus)
+            TodoDTO(title: title, id: id, completionStatus: completionStatus, tag: tag)
         }
     }
     

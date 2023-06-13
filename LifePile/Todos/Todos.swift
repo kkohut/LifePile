@@ -132,7 +132,7 @@ struct Todos: ReducerProtocol {
                 .get()
                 .filter { $0.completionStatus == completionStatus }
                 .reversed()
-                .map { Todo.State(title: $0.title, completionStatus: $0.completionStatus, id: $0.id) }
+                .map { Todo.State(title: $0.title, completionStatus: $0.completionStatus, id: $0.id, tag: $0.tag) }
         )
     }
     
@@ -143,14 +143,16 @@ struct Todos: ReducerProtocol {
     private func updateTitle(of todo: Todo.State, to title: String) -> Result<Bool, Error> {
         coreData.todoRepository.update(to: TodoDTO(title: title,
                                                    id: todo.id,
-                                                   completionStatus: .todo),
+                                                   completionStatus: .todo,
+                                                   tag: todo.tag),
                                        id: todo.id)
     }
     
     private func complete(todo: Todo.State) -> Result<Bool, Error> {
         coreData.todoRepository.update(to: TodoDTO(title: todo.title,
                                                    id: todo.id,
-                                                   completionStatus: .done),
+                                                   completionStatus: .done,
+                                                   tag: todo.tag),
                                        id: todo.id)
     }
     

@@ -96,7 +96,7 @@ struct TodoView: View {
 
 struct TodoView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoView(store: Store(initialState: Todo.State(title: "Clean room", completionStatus: .todo, id: UUID()),
+        TodoView(store: Store(initialState: Todo.State(title: "Clean room", completionStatus: .todo, id: UUID(), tag: TagDTO(named: "University")),
                               reducer: Todo()))
     }
 }
