@@ -8,8 +8,8 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct CreateTodoView: View {
-    let store: StoreOf<Todo>
+struct TodoFormView: View {
+    let store: StoreOf<TodoForm>
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -34,7 +34,7 @@ struct CreateTodoView: View {
                     viewStore.send(.saveButtonTapped)
                 }
                 .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.roundedRectangle(radius: 16))
+//                .buttonBorderShape(.roundedRectangle(radius: 16))
             }
             .padding()
         }
@@ -43,8 +43,7 @@ struct CreateTodoView: View {
 
 struct CreateTodoView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateTodoView(store: Store(initialState: Todo.State(title: "New Todo", completionStatus: .todo, id: UUID()), reducer: Todo()))
-        CreateTodoView(store: Store(initialState: Todo.State(title: "New Todo", completionStatus: .todo, id: UUID()),
-                                    reducer: Todo()))
+        TodoFormView(store: Store(initialState: TodoForm.State(id: UUID(), title: "New Todo", completionStatus: .todo), reducer: TodoForm()))
+        TodoFormView(store: Store(initialState: TodoForm.State(id: UUID(), title: "New Todo", completionStatus: .todo), reducer: TodoForm()))
     }
 }

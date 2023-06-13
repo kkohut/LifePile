@@ -71,12 +71,10 @@ struct TodosView: View {
             .onAppear {
                 viewStore.send(.populate)
             }
-            .sheet(isPresented: viewStore.binding(get: { $0.isShowingCreationSheet },
-                                                  send: Todos.Action.setCreationSheet(isPresented:))) {
-                IfLetStore(self.store.scope(state: \.todoInCreation,
-                                            action: Todos.Action.todoInCreation),     //TODO: correct func
-                           then: CreateTodoView.init(store:)
-                )
+            .sheet(
+                store: store.scope(state: \.$addTodo, action: { .addTodo($0) })
+            ) { store in
+                TodoFormView(store: store)
             }
         }
     }
@@ -85,7 +83,7 @@ struct TodosView: View {
 struct TodosView_Previews: PreviewProvider {
     static var previews: some View {
         TodosView(store: Store(
-            initialState: Todos.State(todos: [], filter: .todo, todoInCreation: nil, isShowingCreationSheet: false),
+            initialState: Todos.State(todos: [], filter: .todo),
             reducer: Todos())
         )
     }

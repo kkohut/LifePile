@@ -12,8 +12,7 @@ struct Todos: ReducerProtocol {
     struct State: Equatable {
         var todos: IdentifiedArrayOf<Todo.State>
         var filter: CompletionStatus
-        var todoInCreation: Todo.State?
-        var isShowingCreationSheet: Bool
+        @PresentationState var addTodo: TodoForm.State?
     }
     
     enum Action: Equatable {
@@ -22,11 +21,9 @@ struct Todos: ReducerProtocol {
         case populate
         case populateWith(todos: IdentifiedArrayOf<Todo.State>)
         case addButtonTapped
-        case setCreationSheet(isPresented: Bool)
-        case updateTodoInCreation(updatedTodo: TodoDTO)
         case add(todo: Todo.State)
+        case addTodo(PresentationAction<TodoForm.Action>)
         case todo(id: Todo.State.ID, action: Todo.Action)
-        case todoInCreation(Todo.Action)
         case remove(todo: Todo.State)
     }
     
@@ -34,7 +31,7 @@ struct Todos: ReducerProtocol {
     @Dependency(\.tapticEngine) var tapticEngine
     @Dependency(\.coreData) var coreData
     
-    var body: some ReducerProtocol<State, Action> {
+    var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
             case .todoFilterTapped:
@@ -59,26 +56,16 @@ struct Todos: ReducerProtocol {
                 return .none
                 
             case .addButtonTapped:
-                state.todoInCreation = Todo.State(title: "New Todo", completionStatus: .todo, id: uuid())
-                state.isShowingCreationSheet = true
-                return .run { _ in
+                state.addTodo = TodoForm.State(id: uuid(), title: "New Todo", completionStatus: .todo)
+                return .run { send in
                     tapticEngine.mediumFeedback()
                 }
                 
-            case .setCreationSheet(isPresented: true):
-                state.isShowingCreationSheet = true
-                return .none
-                
-            case .setCreationSheet(isPresented: false):
-                state.isShowingCreationSheet = false
-                return .none
-                
-            case let .updateTodoInCreation(updatedTodo):
-                state.todoInCreation = updatedTodo.state
-                return .none
-                
             case let .add(todo):
                 state.todos.insert(todo, at: 0)
+                return .none
+                
+            case .addTodo:
                 return .none
                 
             case let .todo(id, .titleChanged(newTitle)):
@@ -113,18 +100,6 @@ struct Todos: ReducerProtocol {
             case .todo(id: _, action: _):
                 return .none
 
-            case .todoInCreation:
-                return .none
-                
-//            case .saveButtonTapped:
-//                guard let todoInCreation = state.todoInCreation else {
-//                    return .none
-//                }
-//                
-//                return .run { send in
-//                    _ = add(todo: todoInCreation.dto)
-//                    await send(.populate)
-//                }
             case let .remove(todo):
                 state.todos.remove(todo)
                 return .none
@@ -133,10 +108,12 @@ struct Todos: ReducerProtocol {
         .forEach(\.todos, action: /Action.todo(id:action:)) {
             Todo()
         }
-        .ifLet(\.todoInCreation, action: /Action.todoInCreation) {
-            Todo()
+        
+        .ifLet(\.$addTodo, action: /Action.addTodo) {
+            TodoForm()
         }
     }
+    
     
     private func loadTodos(filterBy completionStatus: CompletionStatus?) -> IdentifiedArrayOf<Todo.State> {
         IdentifiedArray(
@@ -171,3 +148,10 @@ struct Todos: ReducerProtocol {
         coreData.todoRepository.delete(id: todo.id)
     }
 }
+
+enum SheetAction<Action> {
+    case dismiss
+    case presented(Action)
+}
+
+extension SheetAction: Equatable where Action: Equatable {}
