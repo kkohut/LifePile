@@ -15,8 +15,10 @@ struct TodoFormView: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 HStack {
-                    Text(viewStore.title)
-                        .font(.customLargeTitle)
+                    TextField("Title",
+                              text: viewStore.binding(get: \.title,
+                                                      send: TodoForm.Action.titleChanged))
+                    .font(.customLargeTitle)
                     
                     Spacer()
                 }
@@ -34,7 +36,6 @@ struct TodoFormView: View {
                     viewStore.send(.saveButtonTapped)
                 }
                 .buttonStyle(.borderedProminent)
-//                .buttonBorderShape(.roundedRectangle(radius: 16))
             }
             .padding()
         }

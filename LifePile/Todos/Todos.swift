@@ -70,10 +70,11 @@ struct Todos: ReducerProtocol {
                     return .none
                 }
                 
+                state.addTodo = nil
+                
                 return .run { send in
                     _ = add(todo: addTodo.dto)
                     await send(.populate)
-                    await send(.addTodo(.dismiss))
                 }
                 
             case .addTodo:
