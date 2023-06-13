@@ -136,8 +136,8 @@
 		D3AFD6822A2C2BEB00B10DB1 /* TodoForm */ = {
 			isa = PBXGroup;
 			children = (
-				D3AFD6832A2C2BF900B10DB1 /* TodoFormView.swift */,
 				D3AFD6852A2CEA5C00B10DB1 /* TodoForm.swift */,
+				D3AFD6832A2C2BF900B10DB1 /* TodoFormView.swift */,
 			);
 			path = TodoForm;
 			sourceTree = "<group>";

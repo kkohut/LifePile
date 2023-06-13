@@ -13,6 +13,10 @@ struct TodoForm: ReducerProtocol {
         var id: UUID
         var title: String
         var completionStatus: CompletionStatus
+        
+        var dto: TodoDTO {
+            TodoDTO(title: title, id: id, completionStatus: completionStatus)
+        }
     }
     
     enum Action: Equatable {
