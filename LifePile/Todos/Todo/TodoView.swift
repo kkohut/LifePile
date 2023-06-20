@@ -58,8 +58,8 @@ struct TodoView: View {
             .foregroundColor(.white)
             .background {
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(color(of: viewStore.dragState)
-                        .opacity(viewStore.completionStatus != .done ? 1 : 0.5))
+                    .fill(viewStore.dragState == .idle ? Color.from(tag: viewStore.tag) :
+                            color(of: viewStore.dragState).opacity(viewStore.completionStatus != .done ? 1 : 0.5))
                     .brightness(isFocused ? 0.1 : 0)
                     .shadow(radius: isFocused ? 10 : 0)
             }

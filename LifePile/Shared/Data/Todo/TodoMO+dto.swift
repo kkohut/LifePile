@@ -9,6 +9,13 @@ import Foundation
 
 extension TodoMO {
     var dto: TodoDTO {
-        return TodoDTO(title: self.title!, id: self.id!, completionStatus: CompletionStatus(rawValue: self.completionStatus!)!, tag: TagDTO(named: tag))
+        TodoDTO(
+            title: self.title!,
+            id: self.id!,
+            completionStatus: CompletionStatus(rawValue: self.completionStatus!)!,
+            tag: TagDTO(
+                named: tag
+            )
+        )
     }
 }

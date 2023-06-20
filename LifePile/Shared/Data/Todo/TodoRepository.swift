@@ -29,6 +29,7 @@ struct TodoRepository: Repository {
         todoMO.id = newObject.id
         todoMO.title = newObject.title
         todoMO.completionStatus = newObject.completionStatus.rawValue
+        todoMO.tag = newObject.tag?.title
         try! managedObjectContext.save()
         return .success(todoMO.dto)
     }

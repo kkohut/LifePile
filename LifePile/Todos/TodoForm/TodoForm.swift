@@ -36,7 +36,7 @@ struct TodoForm: ReducerProtocol {
         case titleChanged(newTitle: String)
         case cancelButtonTapped
         case addButtonTapped
-        case tagChanged(tag: State.Tag)
+        case tagChanged(tag: State.Tag?)
     }
     
     @Dependency(\.tapticEngine) var tapticEngine
@@ -54,6 +54,11 @@ struct TodoForm: ReducerProtocol {
             return .none
             
         case .tagChanged(let tag):
+            guard let tag else {
+                state.tag = nil
+                return .none
+            }
+            
             state.tag = TagDTO(named: tag.title)
             return .none
         }
