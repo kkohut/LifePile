@@ -13,62 +13,68 @@ struct TodoFormView: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack {
-                HStack {
-                    TextField("Title",
-                              text: viewStore.binding(get: \.title,
-                                                      send: TodoForm.Action.titleChanged))
-                    .font(.customLargeTitle)
+            NavigationView {
+                VStack {
+                    HStack {
+                        TextField("Title",
+                                  text: viewStore.binding(get: \.title,
+                                                          send: TodoForm.Action.titleChanged))
+                        .font(.customTitle2)
+                        
+                        Spacer()
+                    }
                     
+                    Divider()
                     
-                    Spacer()
-                }
-                
-                HStack {
-                    Spacer()
-                    
-                    HStack(spacing: 12) {
-                        if let tag = viewStore.tag {
-                            Text(tag.title)
-                        } else {
-                            Text("None")
+                    HStack {
+                        Spacer()
+                        
+                        HStack(spacing: 12) {
+                            if let tag = viewStore.tag {
+                                Text(tag.title)
+                            } else {
+                                Text("None")
+                            }
+                            
+                            Image(systemName: "tag.fill")
+                        }
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 8)
+                        .frame(minWidth: 100)
+                        .font(.customBody)
+                        .foregroundColor(.white)
+                        .background {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.accentColor)
                         }
                         
-                        Image(systemName: "tag.fill")
-                    }
-                    .padding(.vertical, 4)
-                    .padding(.horizontal)
-                    .frame(minWidth: 100)
-                    .font(.customTitle3)
-                    .foregroundColor(.white)
-                    .background {
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.accentColor)
+                        tagMenu
                     }
                     
-                    tagMenu
-                }
-                
-                HStack {
-                    Text(viewStore.completionStatus.rawValue)
-                        .font(.customBody)
+                    HStack {
+                        Text(viewStore.completionStatus.rawValue)
+                            .font(.customBody)
+                        
+                        Spacer()
+                    }
                     
                     Spacer()
                 }
-                
-                Spacer()
-                
-                Button("Save Todo") {
-                    viewStore.send(.saveButtonTapped)
-                }
-                .buttonStyle(.borderedProminent)
+                .navigationTitle("Add todo")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarItems(
+                    leading: Button(role: .cancel) { viewStore.send(.cancelButtonTapped) } label: {
+                        Text("Cancel")
+                    },
+                    trailing: Button("Add") { viewStore.send(.addButtonTapped) }
+                        .bold()
+                )
+                .padding()
             }
-            .padding()
+            .presentationDetents([.medium, .large])
+            .presentationBackground(Material.ultraThin)
+            .presentationDragIndicator(.visible)
         }
-        .presentationDetents([.medium])
-        .presentationBackground(Material.ultraThin)
-        .presentationDragIndicator(.visible)
-        .presentationCornerRadius(32)
     }
     
     var tagMenu: some View {

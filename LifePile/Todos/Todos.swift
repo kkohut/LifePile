@@ -65,7 +65,7 @@ struct Todos: ReducerProtocol {
                 state.todos.insert(todo, at: 0)
                 return .none
                 
-            case .addTodo(.presented(.saveButtonTapped)):
+            case .addTodo(.presented(.addButtonTapped)):
                 guard let addTodo = state.addTodo else {
                     return .none
                 }
@@ -76,6 +76,10 @@ struct Todos: ReducerProtocol {
                     _ = add(todo: addTodo.dto)
                     await send(.populate)
                 }
+                
+            case .addTodo(.presented(.cancelButtonTapped)):
+                state.addTodo = nil
+                return .none
                 
             case .addTodo:
                 return .none

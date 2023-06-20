@@ -10,6 +10,7 @@ import Foundation
 
 extension Font {
     static let customLargeTitle = Font.custom(customFont, size: 41, relativeTo: .largeTitle)
+    static let customTitle2 = Font.custom(customFont, size: 28, relativeTo: .title2)
     static let customTitle3 = Font.custom(customFont, size: 25, relativeTo: .title3)
     static let customHeadline = Font.custom(customFont, size: 17, relativeTo: .headline)
     static let customBody = Font.custom(customFont, size: 17, relativeTo: .body)
