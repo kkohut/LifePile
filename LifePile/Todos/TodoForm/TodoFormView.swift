@@ -48,7 +48,17 @@ struct TodoFormView: View {
                                 .fill(Color.accentColor)
                         }
                         
-                        tagMenu
+                        Menu("Choose") {
+                            ForEach(viewStore.defaultTags, id: \.title) { tag in
+                                Button(action: { viewStore.send(.tagChanged(tag: tag)) }) {
+                                    Text(tag.title)
+                                    Image(systemName: tag.image)
+                                }
+                            }
+                        }
+                        .menuOrder(.fixed)
+                        .menuStyle(.button)
+                        .menuIndicator(.visible)
                     }
                     
                     HStack {

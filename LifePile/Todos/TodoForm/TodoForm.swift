@@ -15,9 +15,20 @@ struct TodoForm: ReducerProtocol {
         var completionStatus: CompletionStatus
         var tag: TagDTO?
         var isTitleFocused = true
+        let defaultTags = [
+            Tag(title: "Housekeeping", image: "house"),
+            Tag(title: "University", image: "graduationcap"),
+            Tag(title: "Social", image: "figure.socialdance"),
+            Tag(title: "Sports", image: "dumbbell")
+        ]
         
         var dto: TodoDTO {
             TodoDTO(title: title, id: id, completionStatus: completionStatus, tag: tag)
+        }
+        
+        struct Tag: Equatable {
+            let title: String
+            let image: String
         }
     }
     
@@ -25,6 +36,7 @@ struct TodoForm: ReducerProtocol {
         case titleChanged(newTitle: String)
         case cancelButtonTapped
         case addButtonTapped
+        case tagChanged(tag: State.Tag)
     }
     
     @Dependency(\.tapticEngine) var tapticEngine
@@ -39,6 +51,10 @@ struct TodoForm: ReducerProtocol {
             return .none
             
         case .addButtonTapped:
+            return .none
+            
+        case .tagChanged(let tag):
+            state.tag = TagDTO(named: tag.title)
             return .none
         }
     }
