@@ -21,10 +21,6 @@ struct TodoView: View {
                         .frame(height: 20)
                 }
                 
-                //                Text(viewStore.title)
-                //                    .font(.customHeadline)
-                //                    .fontWeight(.semibold)
-                //
                 Group {
                     if let systemImageKey = SystemImageKey.from(tagTitle: viewStore.tag?.title) {
                         Label(viewStore.title, systemImage: systemImageKey)
