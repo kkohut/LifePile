@@ -21,10 +21,19 @@ struct TodoView: View {
                         .frame(height: 20)
                 }
                 
-                Text(viewStore.title)
-                //                    .frame(minWidth: 0, maxWidth: 180)
-                    .font(.customHeadline)
-                    .fontWeight(.semibold)
+                //                Text(viewStore.title)
+                //                    .font(.customHeadline)
+                //                    .fontWeight(.semibold)
+                //
+                Group {
+                    if let systemImageKey = SystemImageKey.from(tagTitle: viewStore.tag?.title) {
+                        Label(viewStore.title, systemImage: systemImageKey)
+                    } else {
+                        Text(viewStore.title)
+                    }
+                }
+                .font(.customHeadline)
+                .fontWeight(.semibold)
                 
                 if viewStore.dragState == .complete {
                     Image(systemName: "checkmark.circle")

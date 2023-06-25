@@ -37,7 +37,7 @@ struct TodoFormView: View {
                             ForEach(viewStore.defaultTags, id: \.title) { tag in
                                 Button(action: { viewStore.send(.tagChanged(tag: tag)) }) {
                                     Label(tag.title,
-                                          systemImage: SystemImageKey.from(tagTitle: tag.title))
+                                          systemImage: SystemImageKey.from(tagTitle: tag.title) ?? "tag.fill")
                                 }
                             }
                             
@@ -46,7 +46,7 @@ struct TodoFormView: View {
                             }
                         } label: {
                             Label(viewStore.tag?.title ?? "None",
-                                  systemImage: SystemImageKey.from(tagTitle: viewStore.tag?.title))
+                                  systemImage: SystemImageKey.from(tagTitle: viewStore.tag?.title) ?? "tag.fill")
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
                         }
@@ -60,7 +60,7 @@ struct TodoFormView: View {
                         .animation(.spring(), value: viewStore.tag)
                     }
                 }
-                .navigationTitle("Add todo")
+                .navigationTitle(viewStore.operation == .add ? "Add todo": "Edit Todo")
                 #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(

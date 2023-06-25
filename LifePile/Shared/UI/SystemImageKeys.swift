@@ -8,14 +8,14 @@
 import Foundation
 
 enum SystemImageKey {
-    static func from(tagTitle: String?) -> String {
+    static func from(tagTitle: String?) -> String? {
         switch tagTitle {
             case "Housekeeping": "house"
             case "University": "graduationcap"
             case "Work": "suitcase"
             case "Social": "figure.socialdance"
             case "Sports": "dumbbell"
-            default: "tag.fill"
+            default: nil
         }
     }
 }
