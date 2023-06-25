@@ -84,6 +84,16 @@ struct Todos: ReducerProtocol {
             case .addTodo:
                 return .none
                 
+            case let .todo(id, .editTodo):
+                let todoToEdit = state.todos.first(where: { $0.id == id})!
+                state.addTodo = TodoForm.State(
+                    id: todoToEdit.id,
+                    title: todoToEdit.title,
+                    completionStatus: todoToEdit.completionStatus,
+                    tag: todoToEdit.tag
+                )
+                return .none
+                
             case let .todo(id, .titleChanged(newTitle)):
                 let todo = state.todos.first(where: { $0.id == id })!
                 return .fireAndForget {
@@ -114,7 +124,7 @@ struct Todos: ReducerProtocol {
                 
             case .todo(id: _, action: _):
                 return .none
-
+                
             case let .remove(todo):
                 state.todos.remove(todo)
                 return .none

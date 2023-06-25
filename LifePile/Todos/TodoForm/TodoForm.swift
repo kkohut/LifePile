@@ -18,6 +18,7 @@ struct TodoForm: ReducerProtocol {
         let defaultTags = [
             Tag(title: "Housekeeping", image: "house"),
             Tag(title: "University", image: "graduationcap"),
+            Tag(title: "Work", image: "suitcase"),
             Tag(title: "Social", image: "figure.socialdance"),
             Tag(title: "Sports", image: "dumbbell")
         ]

@@ -33,6 +33,7 @@ struct Todo: ReducerProtocol {
         case dragEnded
         case titleChanged(newTitle: String)
         case saveButtonTapped
+        case editTodo
     }
     
     @Dependency(\.tapticEngine) var tapticEngine
@@ -72,6 +73,9 @@ struct Todo: ReducerProtocol {
             return .none
             
         case .saveButtonTapped:
+            return .none
+            
+        case .editTodo:
             return .none
         }
     }

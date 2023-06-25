@@ -60,6 +60,7 @@ struct TodoFormView: View {
                     }
                 }
                 .navigationTitle("Add todo")
+                #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(
                     leading: Button(role: .cancel) { viewStore.send(.cancelButtonTapped) } label: {
@@ -68,6 +69,7 @@ struct TodoFormView: View {
                     trailing: Button("Add") { viewStore.send(.addButtonTapped) }
                         .bold()
                 )
+                #endif
                 .padding()
             }
             .presentationDetents([.medium, .large])

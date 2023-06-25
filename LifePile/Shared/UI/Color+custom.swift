@@ -34,9 +34,12 @@ extension Color {
         }
         
         let finalHash = abs(hash) % (256 * 256 * 256);
-        let uiColor = UIColor(red: CGFloat((finalHash & 0xFF0000) >> 16) / 255.0,
-                              green: CGFloat((finalHash & 0xFF00) >> 8) / 255.0,
-                              blue: CGFloat((finalHash & 0xFF)) / 255.0, alpha: 0.5)
-        return Color(uiColor)
+        
+        return Color(
+            red: CGFloat((finalHash & 0xFF0000) >> 16 ) / 255.0,
+            green: CGFloat((finalHash & 0xFF00) >> 8 ) / 255.0,
+            blue: CGFloat((finalHash & 0xFF )) / 255.0,
+            opacity: 0.5
+        )
     }
 }
