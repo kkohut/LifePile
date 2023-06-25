@@ -17,7 +17,7 @@ struct TodosView: View {
             VStack {
                 HStack {
                     Text("\(viewStore.todos.count) \(viewStore.filter == .todo ? (viewStore.todos.count != 1 ? "Todos" : "Todo") : "Done")")
-                        .font(.largeTitle)
+                        .font(.customLargeTitle)
                     
                     Spacer()
                     
@@ -70,6 +70,16 @@ struct TodosView: View {
             }
             .onAppear {
                 viewStore.send(.populate)
+            }
+            .sheet(
+                store: store.scope(state: \.$todoForm, action: { .saveTodoForm($0) })
+            ) { store in
+                TodoFormView(store: store)
+                    .background {
+                        Color.from(tag: viewStore.todoForm?.tag).opacity(0.15)
+                            .edgesIgnoringSafeArea(.bottom)
+                    }
+                    .tint(Color.from(tag: viewStore.todoForm?.tag))
             }
         }
     }

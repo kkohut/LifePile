@@ -10,7 +10,6 @@ import SwiftUI
 
 struct TodoView: View {
     let store: StoreOf<Todo>
-    @FocusState var isFocused: Bool
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -22,28 +21,15 @@ struct TodoView: View {
                         .frame(height: 20)
                 }
                 
-                TextField("",
-                          text: viewStore.binding(get: \.title,
-                                                      send: Todo.Action.titleChanged),
-                          axis: .vertical)
-                .lineLimit(1...3)
-                .multilineTextAlignment(.center)
-                .textFieldStyle(.plain)
-                .frame(minWidth: 0, maxWidth: 180)
-                .font(.headline)
-                .fontWeight(.semibold)
-                .focused($isFocused)
-                .onAppear {
-                    isFocused = false
-                }
-                
-                if isFocused && viewStore.completionStatus != .done {
-                    Button("Save") {
-                        isFocused = false
+                Group {
+                    if let systemImageKey = SystemImageKey.from(tagTitle: viewStore.tag?.title) {
+                        Label(viewStore.title, systemImage: systemImageKey)
+                    } else {
+                        Text(viewStore.title)
                     }
-                    .buttonStyle(.bordered)
-                    .bold()
                 }
+                .font(.customHeadline)
+                .fontWeight(.semibold)
                 
                 if viewStore.dragState == .complete {
                     Image(systemName: "checkmark.circle")
@@ -53,16 +39,33 @@ struct TodoView: View {
                 }
             }
             .disabled(viewStore.completionStatus == .done)
+            .foregroundColor(.white)
+            .overlay(alignment: .topLeading) {
+                if viewStore.dragState == .delete {
+                    Text("delete")
+                        .font(.customBody)
+                        .foregroundStyle(color(of: viewStore.dragState))
+                        .fixedSize()
+                        .offset(y: -30)
+                }
+            }
+            .overlay(alignment: .topTrailing) {
+                if viewStore.dragState == .complete {
+                    Text("done")
+                        .font(.customBody)
+                        .foregroundStyle(color(of: viewStore.dragState))
+                        .fixedSize()
+                        .offset(y: -30)
+                }
+            }
             .padding(.horizontal)
             .padding(.vertical, 10)
-            .foregroundColor(.white)
             .background {
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(color(of: viewStore.dragState)
-                        .opacity(viewStore.completionStatus != .done ? 1 : 0.5))
-                    .brightness(isFocused ? 0.1 : 0)
-                    .shadow(radius: isFocused ? 10 : 0)
+                    .fill(viewStore.dragState == .idle ? Color.from(tag: viewStore.tag) :
+                            color(of: viewStore.dragState).opacity(viewStore.completionStatus != .done ? 1 : 0.5))
             }
+            .padding(.horizontal, 50)
             .offset(x: viewStore.offset)
             .gesture(
                 DragGesture()
@@ -74,11 +77,10 @@ struct TodoView: View {
                     }
             )
             .onTapGesture {
-                isFocused = true
+                viewStore.send(.editTodo)
             }
             .animation(.linear, value: viewStore.offset)
             .animation(.linear(duration: 0.1), value: viewStore.dragState)
-            .animation(.spring(), value: isFocused)
         }
     }
     
@@ -96,7 +98,7 @@ struct TodoView: View {
 
 struct TodoView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoView(store: Store(initialState: Todo.State(title: "Clean room", completionStatus: .todo, id: UUID()),
+        TodoView(store: Store(initialState: Todo.State(title: "Clean room", completionStatus: .todo, id: UUID(), tag: TagDTO(named: "University")),
                               reducer: Todo()))
     }
 }

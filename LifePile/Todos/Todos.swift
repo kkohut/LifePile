@@ -12,6 +12,7 @@ struct Todos: ReducerProtocol {
     struct State: Equatable {
         var todos: IdentifiedArrayOf<Todo.State>
         var filter: CompletionStatus
+        @PresentationState var todoForm: TodoForm.State?
     }
     
     enum Action: Equatable {
@@ -21,6 +22,7 @@ struct Todos: ReducerProtocol {
         case populateWith(todos: IdentifiedArrayOf<Todo.State>)
         case addButtonTapped
         case add(todo: Todo.State)
+        case saveTodoForm(PresentationAction<TodoForm.Action>)
         case todo(id: Todo.State.ID, action: Todo.Action)
         case remove(todo: Todo.State)
     }
@@ -29,7 +31,7 @@ struct Todos: ReducerProtocol {
     @Dependency(\.tapticEngine) var tapticEngine
     @Dependency(\.coreData) var coreData
     
-    var body: some ReducerProtocol<State, Action> {
+    var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
             switch action {
             case .todoFilterTapped:
@@ -54,8 +56,8 @@ struct Todos: ReducerProtocol {
                 return .none
                 
             case .addButtonTapped:
+                state.todoForm = TodoForm.State(id: uuid(), title: "New Todo", completionStatus: .todo, operation: .add)
                 return .run { send in
-                    await send(.add(todo: try! addTodo().get().state))
                     tapticEngine.mediumFeedback()
                 }
                 
@@ -63,11 +65,39 @@ struct Todos: ReducerProtocol {
                 state.todos.insert(todo, at: 0)
                 return .none
                 
-            case let .todo(id, .titleChanged(newTitle)):
-                let todo = state.todos.first(where: { $0.id == id })!
-                return .fireAndForget {
-                    let _ = try! updateTitle(of: todo, to: newTitle).get()
+            case .saveTodoForm(.presented(.saveButtonTapped)):
+                guard let todoForm = state.todoForm else {
+                    return .none
                 }
+                
+                state.todoForm = nil
+                
+                return .run { send in
+                    if todoForm.operation == .add {
+                        _ = add(todo: todoForm.dto)
+                    } else {
+                        _ = update(todoDTO: todoForm.dto)
+                    }
+                    await send(.populate)
+                }
+                
+            case .saveTodoForm(.presented(.cancelButtonTapped)):
+                state.todoForm = nil
+                return .none
+                
+            case .saveTodoForm:
+                return .none
+                
+            case let .todo(id, .editTodo):
+                let todoToEdit = state.todos.first(where: { $0.id == id})!
+                state.todoForm = TodoForm.State(
+                    id: todoToEdit.id,
+                    title: todoToEdit.title,
+                    completionStatus: todoToEdit.completionStatus,
+                    tag: todoToEdit.tag,
+                    operation: .edit
+                )
+                return .none
                 
             case let .todo(id, .dragEnded):
                 let draggedTodo = state.todos.first(where: { $0.id == id })!
@@ -79,7 +109,14 @@ struct Todos: ReducerProtocol {
                     case .idle:
                         break
                     case .complete:
-                        removed = try! complete(todo: todo).get()
+                        removed = try! update(
+                            todoDTO: TodoDTO(
+                                title: todo.title,
+                                id: todo.id,
+                                completionStatus: .done,
+                                tag: todo.tag
+                            )
+                        ).get()
                         tapticEngine.heavyFeedback()
                     case .delete:
                         removed = try! delete(todo: todo).get()
@@ -91,18 +128,22 @@ struct Todos: ReducerProtocol {
                     }
                 }
                 
-            case let .remove(todo):
-                state.todos.remove(todo)
+            case .todo(id: _, action: _):
                 return .none
                 
-            case .todo(id: _, action: _):
+            case let .remove(todo):
+                state.todos.remove(todo)
                 return .none
             }
         }
         .forEach(\.todos, action: /Action.todo(id:action:)) {
             Todo()
         }
+        .ifLet(\.$todoForm, action: /Action.saveTodoForm) {
+            TodoForm()
+        }
     }
+    
     
     private func loadTodos(filterBy completionStatus: CompletionStatus?) -> IdentifiedArrayOf<Todo.State> {
         IdentifiedArray(
@@ -111,31 +152,27 @@ struct Todos: ReducerProtocol {
                 .get()
                 .filter { $0.completionStatus == completionStatus }
                 .reversed()
-                .map { Todo.State(title: $0.title, completionStatus: $0.completionStatus, id: $0.id) }
+                .map { Todo.State(title: $0.title, completionStatus: $0.completionStatus, id: $0.id, tag: $0.tag) }
         )
     }
     
-    private func addTodo() -> Result<TodoDTO, Error> {
-        coreData.todoRepository.insert(newObject: TodoDTO(title: "New Todo",
-                                                          id: self.uuid(),
-                                                          completionStatus: .todo))
+    private func add(todo: TodoDTO) -> Result<TodoDTO, Error> {
+        coreData.todoRepository.insert(newObject: todo)
     }
     
-    private func updateTitle(of todo: Todo.State, to title: String) -> Result<Bool, Error> {
-        coreData.todoRepository.update(to: TodoDTO(title: title,
-                                                   id: todo.id,
-                                                   completionStatus: .todo),
-                                       id: todo.id)
-    }
-    
-    private func complete(todo: Todo.State) -> Result<Bool, Error> {
-        coreData.todoRepository.update(to: TodoDTO(title: todo.title,
-                                                   id: todo.id,
-                                                   completionStatus: .done),
-                                       id: todo.id)
+    private func update(todoDTO: TodoDTO) -> Result<Bool, Error> {
+        coreData.todoRepository.update(to: todoDTO,
+                                       id: todoDTO.id)
     }
     
     private func delete(todo: Todo.State) -> Result<Bool, Error> {
         coreData.todoRepository.delete(id: todo.id)
     }
 }
+
+enum SheetAction<Action> {
+    case dismiss
+    case presented(Action)
+}
+
+extension SheetAction: Equatable where Action: Equatable {}

@@ -15,18 +15,24 @@ struct Todo: ReducerProtocol {
         let id: UUID
         var offset = 0.0
         var dragState = DragState.idle
+        let tag: TagDTO?
         
         enum DragState {
             case idle
             case complete
             case delete
         }
+        
+        var dto: TodoDTO {
+            TodoDTO(title: title, id: id, completionStatus: completionStatus, tag: tag)
+        }
     }
     
     enum Action: Equatable {
         case offsetChanged(newOffset: Double)
         case dragEnded
-        case titleChanged(newTitle: String)
+        case saveButtonTapped
+        case editTodo
     }
     
     @Dependency(\.tapticEngine) var tapticEngine
@@ -61,8 +67,10 @@ struct Todo: ReducerProtocol {
             
             return .none
             
-        case .titleChanged(let newTitle):
-            state.title = newTitle
+        case .saveButtonTapped:
+            return .none
+            
+        case .editTodo:
             return .none
         }
     }

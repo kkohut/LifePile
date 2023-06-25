@@ -16,9 +16,12 @@
 		D315FB7D2A06BBFA00553FA3 /* TodoMO+dto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315FB7C2A06BBFA00553FA3 /* TodoMO+dto.swift */; };
 		D34FC72C2A0D875900D5479C /* TodoDTO+state.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34FC72B2A0D875900D5479C /* TodoDTO+state.swift */; };
 		D3623AF42A0A61000050BAC6 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3623AF32A0A61000050BAC6 /* CoreDataError.swift */; };
+		D3AFD6842A2C2BF900B10DB1 /* TodoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AFD6832A2C2BF900B10DB1 /* TodoFormView.swift */; };
+		D3AFD6862A2CEA5C00B10DB1 /* TodoForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AFD6852A2CEA5C00B10DB1 /* TodoForm.swift */; };
 		D3CC30FD2A0EE41200457B9C /* CompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC30FC2A0EE41200457B9C /* CompletionStatus.swift */; };
 		D3CE072C2A11A0F500F89038 /* Color+custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CE072B2A11A0F500F89038 /* Color+custom.swift */; };
 		D3CE072E2A11A64D00F89038 /* Font+custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CE072D2A11A64D00F89038 /* Font+custom.swift */; };
+		D3D3D8AE2A48EBD400DDB930 /* SystemImageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3D8AD2A48EBD400DDB930 /* SystemImageKeys.swift */; };
 		D3D754B429FD5F9900550005 /* LifePileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754B329FD5F9900550005 /* LifePileApp.swift */; };
 		D3D754B829FD5F9B00550005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3D754B729FD5F9B00550005 /* Assets.xcassets */; };
 		D3D754BC29FD5F9B00550005 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3D754BB29FD5F9B00550005 /* Preview Assets.xcassets */; };
@@ -31,6 +34,7 @@
 		D3D754F02A0011C700550005 /* TodosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754EF2A0011C700550005 /* TodosView.swift */; };
 		D3D754F22A0011D200550005 /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754F12A0011D200550005 /* TodoView.swift */; };
 		D3D754F42A0012CB00550005 /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D754F32A0012CB00550005 /* TapticEngine.swift */; };
+		D3E83C322A38C5C2006B05F1 /* TagDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E83C312A38C5C2006B05F1 /* TagDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,9 +64,12 @@
 		D315FB7C2A06BBFA00553FA3 /* TodoMO+dto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoMO+dto.swift"; sourceTree = "<group>"; };
 		D34FC72B2A0D875900D5479C /* TodoDTO+state.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoDTO+state.swift"; sourceTree = "<group>"; };
 		D3623AF32A0A61000050BAC6 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
+		D3AFD6832A2C2BF900B10DB1 /* TodoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormView.swift; sourceTree = "<group>"; };
+		D3AFD6852A2CEA5C00B10DB1 /* TodoForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoForm.swift; sourceTree = "<group>"; };
 		D3CC30FC2A0EE41200457B9C /* CompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionStatus.swift; sourceTree = "<group>"; };
 		D3CE072B2A11A0F500F89038 /* Color+custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+custom.swift"; sourceTree = "<group>"; };
 		D3CE072D2A11A64D00F89038 /* Font+custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+custom.swift"; sourceTree = "<group>"; };
+		D3D3D8AD2A48EBD400DDB930 /* SystemImageKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemImageKeys.swift; sourceTree = "<group>"; };
 		D3D754B029FD5F9900550005 /* LifePile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifePile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3D754B329FD5F9900550005 /* LifePileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePileApp.swift; sourceTree = "<group>"; };
 		D3D754B729FD5F9B00550005 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -78,6 +85,7 @@
 		D3D754EF2A0011C700550005 /* TodosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosView.swift; sourceTree = "<group>"; };
 		D3D754F12A0011D200550005 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		D3D754F32A0012CB00550005 /* TapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
+		D3E83C312A38C5C2006B05F1 /* TagDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,11 +137,21 @@
 			path = Todo;
 			sourceTree = "<group>";
 		};
+		D3AFD6822A2C2BEB00B10DB1 /* TodoForm */ = {
+			isa = PBXGroup;
+			children = (
+				D3AFD6852A2CEA5C00B10DB1 /* TodoForm.swift */,
+				D3AFD6832A2C2BF900B10DB1 /* TodoFormView.swift */,
+			);
+			path = TodoForm;
+			sourceTree = "<group>";
+		};
 		D3CC30FA2A0EE3F400457B9C /* TodoDTO */ = {
 			isa = PBXGroup;
 			children = (
 				D315FB722A068ACB00553FA3 /* TodoDTO.swift */,
 				D3CC30FC2A0EE41200457B9C /* CompletionStatus.swift */,
+				D3E83C312A38C5C2006B05F1 /* TagDTO.swift */,
 			);
 			path = TodoDTO;
 			sourceTree = "<group>";
@@ -143,6 +161,7 @@
 			children = (
 				D3CE072B2A11A0F500F89038 /* Color+custom.swift */,
 				D3CE072D2A11A64D00F89038 /* Font+custom.swift */,
+				D3D3D8AD2A48EBD400DDB930 /* SystemImageKeys.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -212,6 +231,7 @@
 				D3D754EF2A0011C700550005 /* TodosView.swift */,
 				D34FC72B2A0D875900D5479C /* TodoDTO+state.swift */,
 				D3D754ED2A0011A400550005 /* Todo */,
+				D3AFD6822A2C2BEB00B10DB1 /* TodoForm */,
 			);
 			path = Todos;
 			sourceTree = "<group>";
@@ -371,6 +391,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3D3D8AE2A48EBD400DDB930 /* SystemImageKeys.swift in Sources */,
 				D34FC72C2A0D875900D5479C /* TodoDTO+state.swift in Sources */,
 				D3D754EB29FDB92E00550005 /* Todo.swift in Sources */,
 				D3D754E929FDB72900550005 /* Todos.swift in Sources */,
@@ -388,7 +409,10 @@
 				D315FB762A06912C00553FA3 /* Storage.swift in Sources */,
 				D315FB792A0692EE00553FA3 /* LifePile.xcdatamodeld in Sources */,
 				D3623AF42A0A61000050BAC6 /* CoreDataError.swift in Sources */,
+				D3AFD6862A2CEA5C00B10DB1 /* TodoForm.swift in Sources */,
+				D3AFD6842A2C2BF900B10DB1 /* TodoFormView.swift in Sources */,
 				D3CC30FD2A0EE41200457B9C /* CompletionStatus.swift in Sources */,
+				D3E83C322A38C5C2006B05F1 /* TagDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,6 +590,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -604,6 +630,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -746,8 +774,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.52.0;
+				kind = exactVersion;
+				version = 0.54.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
