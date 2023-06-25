@@ -99,12 +99,6 @@ struct Todos: ReducerProtocol {
                 )
                 return .none
                 
-//            case let .todo(id, .titleChanged(newTitle)):
-//                let todo = state.todos.first(where: { $0.id == id })!
-//                return .fireAndForget {
-//                    let _ = try! updateTitle(of: todo, to: newTitle).get()
-//                }
-                
             case let .todo(id, .dragEnded):
                 let draggedTodo = state.todos.first(where: { $0.id == id })!
                 
@@ -115,7 +109,14 @@ struct Todos: ReducerProtocol {
                     case .idle:
                         break
                     case .complete:
-                        removed = try! complete(todo: todo).get()
+                        removed = try! update(
+                            todoDTO: TodoDTO(
+                                title: todo.title,
+                                id: todo.id,
+                                completionStatus: .done,
+                                tag: todo.tag
+                            )
+                        ).get()
                         tapticEngine.heavyFeedback()
                     case .delete:
                         removed = try! delete(todo: todo).get()
@@ -162,14 +163,6 @@ struct Todos: ReducerProtocol {
     private func update(todoDTO: TodoDTO) -> Result<Bool, Error> {
         coreData.todoRepository.update(to: todoDTO,
                                        id: todoDTO.id)
-    }
-    
-    private func complete(todo: Todo.State) -> Result<Bool, Error> {
-        coreData.todoRepository.update(to: TodoDTO(title: todo.title,
-                                                   id: todo.id,
-                                                   completionStatus: .done,
-                                                   tag: todo.tag),
-                                       id: todo.id)
     }
     
     private func delete(todo: Todo.State) -> Result<Bool, Error> {
