@@ -36,7 +36,8 @@ struct TodoFormView: View {
                         Menu {
                             ForEach(viewStore.defaultTags, id: \.title) { tag in
                                 Button(action: { viewStore.send(.tagChanged(tag: tag)) }) {
-                                    Label(tag.title, systemImage: tag.image)
+                                    Label(tag.title,
+                                          systemImage: SystemImageKey.from(tagTitle: tag.title))
                                 }
                             }
                             
@@ -45,7 +46,7 @@ struct TodoFormView: View {
                             }
                         } label: {
                             Label(viewStore.tag?.title ?? "None",
-                                  systemImage: "tag.fill")
+                                  systemImage: SystemImageKey.from(tagTitle: viewStore.tag?.title))
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
                         }
