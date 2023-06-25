@@ -31,7 +31,7 @@ struct Todo: ReducerProtocol {
     enum Action: Equatable {
         case offsetChanged(newOffset: Double)
         case dragEnded
-        case titleChanged(newTitle: String)
+//        case titleChanged(newTitle: String)
         case saveButtonTapped
         case editTodo
     }
@@ -68,9 +68,9 @@ struct Todo: ReducerProtocol {
             
             return .none
             
-        case .titleChanged(let newTitle):
-            state.title = newTitle
-            return .none
+//        case .titleChanged(let newTitle):
+//            state.title = newTitle
+//            return .none
             
         case .saveButtonTapped:
             return .none

@@ -67,7 +67,7 @@ struct TodoFormView: View {
                     leading: Button(role: .cancel) { viewStore.send(.cancelButtonTapped) } label: {
                         Text("Cancel")
                     },
-                    trailing: Button("Add") { viewStore.send(.addButtonTapped) }
+                    trailing: Button("Save") { viewStore.send(.saveButtonTapped) }
                         .bold()
                 )
                 #endif
@@ -82,7 +82,7 @@ struct TodoFormView: View {
 
 struct TodoFormView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoFormView(store: Store(initialState: TodoForm.State(id: UUID(), title: "New Todo", completionStatus: .todo, tag: TagDTO(named: "University")), reducer: TodoForm()))
-        TodoFormView(store: Store(initialState: TodoForm.State(id: UUID(), title: "New Todo", completionStatus: .todo, tag: nil), reducer: TodoForm()))
+        TodoFormView(store: Store(initialState: TodoForm.State(id: UUID(), title: "New Todo", completionStatus: .todo, tag: TagDTO(named: "University"), operation: .add), reducer: TodoForm()))
+        TodoFormView(store: Store(initialState: TodoForm.State(id: UUID(), title: "New Todo", completionStatus: .todo, tag: nil, operation: .edit), reducer: TodoForm()))
     }
 }

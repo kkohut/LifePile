@@ -72,7 +72,7 @@ struct TodosView: View {
                 viewStore.send(.populate)
             }
             .sheet(
-                store: store.scope(state: \.$addTodo, action: { .addTodo($0) })
+                store: store.scope(state: \.$todoForm, action: { .saveTodoForm($0) })
             ) { store in
                 TodoFormView(store: store)
             }

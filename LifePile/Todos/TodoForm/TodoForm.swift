@@ -15,6 +15,7 @@ struct TodoForm: ReducerProtocol {
         var completionStatus: CompletionStatus
         var tag: TagDTO?
         var isTitleFocused = true
+        let operation: Operation
         let defaultTags = [
             TagDTO(named: "Housekeeping"),
             TagDTO(named: "University"),
@@ -31,8 +32,13 @@ struct TodoForm: ReducerProtocol {
     enum Action: Equatable {
         case titleChanged(newTitle: String)
         case cancelButtonTapped
-        case addButtonTapped
+        case saveButtonTapped
         case tagChanged(tag: TagDTO?)
+    }
+    
+    enum Operation: Equatable {
+        case add
+        case edit
     }
     
     @Dependency(\.tapticEngine) var tapticEngine
@@ -46,7 +52,7 @@ struct TodoForm: ReducerProtocol {
             state.title = newTitle
             return .none
             
-        case .addButtonTapped:
+        case .saveButtonTapped:
             return .none
             
         case .tagChanged(let tag):
