@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import SwiftUI
+import Charts
 
 struct TodosView: View {
     let store: StoreOf<Todos>
@@ -38,6 +39,31 @@ struct TodosView: View {
                 }
                 .padding()
                 
+                Chart(viewStore.todosByAmount.sorted(by: >), id: \.key) { tag in
+                    BarMark(
+                        x: .value("Count", tag.value),
+                        stacking: .normalized
+                    )
+                    .annotation(position: .overlay) {
+                        Group {
+                            if let systemImage = SystemImageKey.from(tagTitle: tag.key) {
+                                Label("\(tag.value)", systemImage: systemImage)
+                            } else {
+                                Text("\(tag.value)")
+                            }
+                        }
+                        .foregroundColor(.white)
+                        .font(.caption)
+                    }
+                    .foregroundStyle(color(from: tag.key))
+                }
+                .chartYAxis(.hidden)
+                .chartXAxis(.hidden)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .frame(height: 28)
+                .padding(.horizontal)
+                .animation(.easeInOut, value: viewStore.todosByAmount)
+                
                 GeometryReader { geometry in
                     ScrollView {
                         VStack {
@@ -67,6 +93,7 @@ struct TodosView: View {
                         .animation(.spring(), value: viewStore.todos.count)
                     }
                 }
+                .padding(.bottom)
             }
             .onAppear {
                 viewStore.send(.populate)
@@ -81,6 +108,14 @@ struct TodosView: View {
                     }
             }
         }
+    }
+                                     
+    private func color(from tagTitle: String) -> Color {
+        Color.from(tag: tag(from: tagTitle))
+    }
+    
+    private func tag(from title: String) -> TagDTO? {
+        title != "No tag" ? TagDTO(named: title) : nil
     }
 }
 

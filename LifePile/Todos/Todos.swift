@@ -13,6 +13,10 @@ struct Todos: ReducerProtocol {
         var todos: IdentifiedArrayOf<Todo.State>
         var filter: CompletionStatus
         @PresentationState var todoForm: TodoForm.State?
+        var todosByAmount: [String: Int] {
+            Dictionary(grouping: todos, by: { $0.tag?.title ?? "No tag" })
+                .mapValues { value in value.count }
+        }
     }
     
     enum Action: Equatable {

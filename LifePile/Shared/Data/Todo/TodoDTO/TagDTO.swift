@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TagDTO: Equatable {
+struct TagDTO: Equatable, Hashable {
     let title: String
     
     init(named title: String) {
