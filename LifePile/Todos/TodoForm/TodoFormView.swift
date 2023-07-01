@@ -16,20 +16,43 @@ struct TodoFormView: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationView {
                 VStack {
-                    HStack {
+                    HStack(alignment: .top) {
                         TextField("Title",
                                   text: viewStore.binding(get: \.title,
-                                                          send: TodoForm.Action.titleChanged))
+                                                          send: TodoForm.Action.titleChanged),
+                                  axis: .vertical)
+                        .lineLimit(3)
                         .font(.customTitle2)
                         
                         Spacer()
+                        
+                        Group {
+                            if viewStore.completionStatus == .done {
+                                Button(action: { viewStore.send(.markAsToDo) }) {
+                                    Label("Done", systemImage: "checkmark.circle")
+                                }
+                            } else {
+                                Button(action: { viewStore.send(.markAsDone) }) {
+                                    Label("To Do", systemImage: "tray")
+                                }
+                            }
+                        }
+                        .font(.customBody)
+                        .tint(viewStore.completionStatus == .todo ? .orange : .green)
+                        .buttonStyle(.borderedProminent)
+                        .animation(.bouncy, value: viewStore.completionStatus)
                     }
                     
                     Spacer()
                     
                     HStack {
-                        Text(viewStore.completionStatus.rawValue)
-                            .font(.customBody)
+                        if viewStore.operation == .edit {
+                            Button(action: { viewStore.send(.delete) }) {
+                                Label("Delete", systemImage: "x.circle")
+                            }
+                            .tint(.red)
+                            .buttonStyle(.bordered)
+                        }
                         
                         Spacer()
                         
