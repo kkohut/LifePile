@@ -35,6 +35,9 @@ struct TodoForm: ReducerProtocol {
         case cancelButtonTapped
         case saveButtonTapped
         case tagChanged(tag: TagDTO?)
+        case markAsToDo
+        case markAsDone
+        case delete
     }
     
     enum Operation: Equatable {
@@ -58,6 +61,17 @@ struct TodoForm: ReducerProtocol {
             
         case .tagChanged(let tag):
             state.tag = tag
+            return .none
+            
+        case .markAsToDo:
+            state.completionStatus = .todo
+            return .none
+            
+        case .markAsDone:
+            state.completionStatus = .done
+            return .none
+        
+        case .delete:
             return .none
         }
     }

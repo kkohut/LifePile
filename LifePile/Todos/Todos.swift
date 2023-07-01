@@ -24,7 +24,7 @@ struct Todos: ReducerProtocol {
         case add(todo: Todo.State)
         case saveTodoForm(PresentationAction<TodoForm.Action>)
         case todo(id: Todo.State.ID, action: Todo.Action)
-        case remove(todo: Todo.State)
+        case remove(todoID: UUID)
     }
     
     @Dependency(\.uuid) var uuid
@@ -85,6 +85,20 @@ struct Todos: ReducerProtocol {
                 state.todoForm = nil
                 return .none
                 
+            case .saveTodoForm(.presented(.delete)):
+                guard let todoForm = state.todoForm else {
+                    return .none
+                }
+                
+                state.todoForm = nil
+                
+                return .run { send in
+                    let removed = try! delete(todoID: todoForm.id).get()
+                    if removed {
+                        await send(.remove(todoID: todoForm.id))
+                    }
+                }
+                
             case .saveTodoForm:
                 return .none
                 
@@ -119,20 +133,20 @@ struct Todos: ReducerProtocol {
                         ).get()
                         tapticEngine.heavyFeedback()
                     case .delete:
-                        removed = try! delete(todo: todo).get()
+                        removed = try! delete(todoID: todo.id).get()
                         tapticEngine.mediumFeedback()
                     }
                     
                     if removed {
-                        await send(.remove(todo: todo))
+                        await send(.remove(todoID: todo.id))
                     }
                 }
                 
             case .todo(id: _, action: _):
                 return .none
                 
-            case let .remove(todo):
-                state.todos.remove(todo)
+            case let .remove(todoID):
+                state.todos.remove(id: todoID)
                 return .none
             }
         }
@@ -165,8 +179,8 @@ struct Todos: ReducerProtocol {
                                        id: todoDTO.id)
     }
     
-    private func delete(todo: Todo.State) -> Result<Bool, Error> {
-        coreData.todoRepository.delete(id: todo.id)
+    private func delete(todoID: UUID) -> Result<Bool, Error> {
+        coreData.todoRepository.delete(id: todoID)
     }
 }
 
