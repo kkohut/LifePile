@@ -18,10 +18,11 @@ struct TodoForm: ReducerProtocol {
         let operation: Operation
         let defaultTags = [
             TagDTO(named: "Housekeeping"),
-            TagDTO(named: "University"),
+            TagDTO(named: "Study"),
             TagDTO(named: "Work"),
             TagDTO(named: "Social"),
-            TagDTO(named: "Sports")
+            TagDTO(named: "Sports"),
+            TagDTO(named: "Hobbies")
         ]
         
         var dto: TodoDTO {

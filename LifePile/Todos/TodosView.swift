@@ -79,7 +79,6 @@ struct TodosView: View {
                         Color.from(tag: viewStore.todoForm?.tag).opacity(0.15)
                             .edgesIgnoringSafeArea(.bottom)
                     }
-                    .tint(Color.from(tag: viewStore.todoForm?.tag))
             }
         }
     }

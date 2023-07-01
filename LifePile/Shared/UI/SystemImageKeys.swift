@@ -11,10 +11,11 @@ enum SystemImageKey {
     static func from(tagTitle: String?) -> String? {
         switch tagTitle {
             case "Housekeeping": "house"
-            case "University": "graduationcap"
+            case "Study": "graduationcap"
             case "Work": "suitcase"
             case "Social": "figure.socialdance"
             case "Sports": "dumbbell"
+            case "Hobbies": "paintpalette"
             default: nil
         }
     }
