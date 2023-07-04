@@ -14,6 +14,7 @@ struct TodoForm: ReducerProtocol {
         var title: String
         var completionStatus: CompletionStatus
         var tag: TagDTO?
+        var weight: Double
         var isTitleFocused = true
         let operation: Operation
         let defaultTags = [
@@ -26,7 +27,7 @@ struct TodoForm: ReducerProtocol {
         ]
         
         var dto: TodoDTO {
-            TodoDTO(title: title, id: id, completionStatus: completionStatus, tag: tag)
+            TodoDTO(title: title, id: id, completionStatus: completionStatus, tag: tag, weight: Int(weight))
         }
     }
     
@@ -38,6 +39,7 @@ struct TodoForm: ReducerProtocol {
         case markAsToDo
         case markAsDone
         case delete
+        case weightChanged(weight: Double)
     }
     
     enum Operation: Equatable {
@@ -73,6 +75,15 @@ struct TodoForm: ReducerProtocol {
         
         case .delete:
             return .none
+            
+        case .weightChanged(let weight):
+            let previousWeight = state.weight
+            state.weight = weight
+            return .fireAndForget {
+                if Int(previousWeight) != Int(weight) {
+                    tapticEngine.mediumFeedback()
+                }
+            }
         }
     }
 }

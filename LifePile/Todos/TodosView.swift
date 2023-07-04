@@ -73,11 +73,9 @@ struct TodosView: View {
                                 Button(action: {
                                     viewStore.send(.addButtonTapped)
                                 }) {
-                                    HStack {
-                                        Image(systemName: "plus.circle.fill")
-                                        Text("Add task")
-                                            .bold()
-                                    }
+                                    Label("Add todo",
+                                          systemImage: "plus.circle.fill")
+                                    .bold()
                                 }
                                 .buttonStyle(.bordered)
                                 .buttonBorderShape(.roundedRectangle)
@@ -88,10 +86,32 @@ struct TodosView: View {
                             ForEachStore(self.store.scope(state: \.todos, action: Todos.Action.todo(id:action:))) {
                                 TodoView(store: $0)
                             }
+                            
+                            HStack(alignment: .firstTextBaseline, spacing: 4) {
+                                Image(systemName: "scalemass.fill")
+                                Text(String(viewStore.totalWeight))
+                                    .font(.customHeadline)
+                                    .padding(4)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(Color.black)
+                                    }
+                                
+                                Text("weight")
+                                    .font(.footnote)
+                            }
+                            .foregroundColor(.white)
+                            .padding(.horizontal)
+                            .padding(.vertical, 8)
+                            .background {
+                                RoundedRectangle(cornerRadius: 32)
+                                    .fill(Color.gray.gradient)
+                            }
                         }
                         .frame(minWidth: geometry.size.width, minHeight: geometry.size.height)
                         .animation(.spring(), value: viewStore.todos.count)
                     }
+                    
                 }
                 .padding(.bottom)
             }
@@ -109,7 +129,7 @@ struct TodosView: View {
             }
         }
     }
-                                     
+    
     private func color(from tagTitle: String) -> Color {
         Color.from(tag: tag(from: tagTitle))
     }

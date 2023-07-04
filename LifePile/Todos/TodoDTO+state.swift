@@ -9,6 +9,6 @@ import Foundation
 
 extension TodoDTO {
     var state: Todo.State {
-        .init(title: self.title, completionStatus: self.completionStatus, id: self.id, tag: TagDTO(named: self.title))
+        .init(title: self.title, completionStatus: self.completionStatus, id: self.id, tag: TagDTO(named: self.title), weight: self.weight)
     }
 }

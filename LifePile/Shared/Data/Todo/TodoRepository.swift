@@ -30,6 +30,7 @@ struct TodoRepository: Repository {
         todoMO.title = newObject.title
         todoMO.completionStatus = newObject.completionStatus.rawValue
         todoMO.tag = newObject.tag?.title
+        todoMO.weight = Int32(newObject.weight)
         try! managedObjectContext.save()
         return .success(todoMO.dto)
     }
@@ -43,6 +44,7 @@ struct TodoRepository: Repository {
             fetchedTodoMO.title = updatedObject.title
             fetchedTodoMO.completionStatus = updatedObject.completionStatus.rawValue
             fetchedTodoMO.tag = updatedObject.tag?.title
+            fetchedTodoMO.weight = Int32(updatedObject.weight)
             try! managedObjectContext.save()
             return.success(true)
         } catch {

@@ -12,4 +12,5 @@ struct TodoDTO: Identifiable, Equatable {
     let id: UUID
     let completionStatus: CompletionStatus
     let tag: TagDTO?
+    let weight: Int
 }
