@@ -13,7 +13,8 @@ extension TodoMO {
             title: self.title!,
             id: self.id!,
             completionStatus: CompletionStatus(rawValue: self.completionStatus!)!,
-            tag: tag != nil ? TagDTO(named: tag!) : nil
+            tag: tag != nil ? TagDTO(named: tag!) : nil,
+            weight: Int(self.weight)
         )
     }
 }

@@ -14,6 +14,7 @@ struct TodoForm: ReducerProtocol {
         var title: String
         var completionStatus: CompletionStatus
         var tag: TagDTO?
+        var weight: Int
         var isTitleFocused = true
         let operation: Operation
         let defaultTags = [
@@ -26,7 +27,7 @@ struct TodoForm: ReducerProtocol {
         ]
         
         var dto: TodoDTO {
-            TodoDTO(title: title, id: id, completionStatus: completionStatus, tag: tag)
+            TodoDTO(title: title, id: id, completionStatus: completionStatus, tag: tag, weight: weight)
         }
     }
     

@@ -60,7 +60,7 @@ struct Todos: ReducerProtocol {
                 return .none
                 
             case .addButtonTapped:
-                state.todoForm = TodoForm.State(id: uuid(), title: "New Todo", completionStatus: .todo, operation: .add)
+                state.todoForm = TodoForm.State(id: uuid(), title: "New Todo", completionStatus: .todo, weight: 5, operation: .add)
                 return .run { send in
                     tapticEngine.mediumFeedback()
                 }
@@ -113,6 +113,7 @@ struct Todos: ReducerProtocol {
                     title: todoToEdit.title,
                     completionStatus: todoToEdit.completionStatus,
                     tag: todoToEdit.tag,
+                    weight: todoToEdit.weight,
                     operation: .edit
                 )
                 return .none
@@ -132,7 +133,8 @@ struct Todos: ReducerProtocol {
                                 title: todo.title,
                                 id: todo.id,
                                 completionStatus: .done,
-                                tag: todo.tag
+                                tag: todo.tag,
+                                weight: todo.weight
                             )
                         ).get()
                         tapticEngine.heavyFeedback()
@@ -170,7 +172,7 @@ struct Todos: ReducerProtocol {
                 .get()
                 .filter { $0.completionStatus == completionStatus }
                 .reversed()
-                .map { Todo.State(title: $0.title, completionStatus: $0.completionStatus, id: $0.id, tag: $0.tag) }
+                .map { Todo.State(title: $0.title, completionStatus: $0.completionStatus, id: $0.id, tag: $0.tag, weight: $0.weight) }
         )
     }
     

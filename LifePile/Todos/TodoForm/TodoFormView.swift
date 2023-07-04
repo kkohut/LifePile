@@ -105,7 +105,7 @@ struct TodoFormView: View {
 
 struct TodoFormView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoFormView(store: Store(initialState: TodoForm.State(id: UUID(), title: "New Todo", completionStatus: .todo, tag: TagDTO(named: "University"), operation: .add), reducer: TodoForm()))
-        TodoFormView(store: Store(initialState: TodoForm.State(id: UUID(), title: "New Todo", completionStatus: .todo, tag: nil, operation: .edit), reducer: TodoForm()))
+        TodoFormView(store: Store(initialState: TodoForm.State(id: UUID(), title: "New Todo", completionStatus: .todo, tag: TagDTO(named: "University"), weight: 7, operation: .add), reducer: TodoForm()))
+        TodoFormView(store: Store(initialState: TodoForm.State(id: UUID(), title: "New Todo", completionStatus: .todo, tag: nil, weight: 10, operation: .edit), reducer: TodoForm()))
     }
 }

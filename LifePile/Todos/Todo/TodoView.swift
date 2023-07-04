@@ -23,13 +23,15 @@ struct TodoView: View {
                 
                 Group {
                     if let systemImageKey = SystemImageKey.from(tagTitle: viewStore.tag?.title) {
-                        Label(viewStore.title, systemImage: systemImageKey)
-                    } else {
-                        Text(viewStore.title)
+                        Image(systemName: systemImageKey)
                     }
+                    Text(viewStore.title)
                 }
                 .font(.customHeadline)
                 .fontWeight(.semibold)
+                
+                Label(String(viewStore.weight), systemImage: "scalemass")
+                    .font(.customHeadline)
                 
                 if viewStore.dragState == .complete {
                     Image(systemName: "checkmark.circle")
@@ -98,7 +100,7 @@ struct TodoView: View {
 
 struct TodoView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoView(store: Store(initialState: Todo.State(title: "Clean room", completionStatus: .todo, id: UUID(), tag: TagDTO(named: "University")),
+        TodoView(store: Store(initialState: Todo.State(title: "Clean room", completionStatus: .todo, id: UUID(), tag: TagDTO(named: "Housekeeping"), weight: 3),
                               reducer: Todo()))
     }
 }
