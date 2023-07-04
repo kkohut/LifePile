@@ -17,6 +17,11 @@ struct Todos: ReducerProtocol {
             Dictionary(grouping: todos, by: { $0.tag?.title ?? "No tag" })
                 .mapValues { value in value.count }
         }
+        
+        var totalWeight: Int {
+            todos.map { $0.weight }
+                .reduce(0, + )
+        }
     }
     
     enum Action: Equatable {
