@@ -32,6 +32,8 @@ struct TodoView: View {
                 
                 Label(String(viewStore.weight), systemImage: "scalemass")
                     .font(.customHeadline)
+                    .foregroundColor(.gray)
+                    .brightness(0.3)
                 
                 if viewStore.dragState == .complete {
                     Image(systemName: "checkmark.circle")

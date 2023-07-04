@@ -118,7 +118,7 @@ struct Todos: ReducerProtocol {
                     title: todoToEdit.title,
                     completionStatus: todoToEdit.completionStatus,
                     tag: todoToEdit.tag,
-                    weight: todoToEdit.weight,
+                    weight: Double(todoToEdit.weight),
                     operation: .edit
                 )
                 return .none

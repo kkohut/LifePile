@@ -23,6 +23,12 @@ struct TodoFormView: View {
                                   axis: .vertical)
                         .lineLimit(3)
                         .font(.customTitle2)
+                        .padding(6)
+                        .background {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Material.ultraThin)
+//                                .shadow(radius: 4, x: 2, y: 2)
+                        }
                         
                         Spacer()
                         
@@ -44,6 +50,32 @@ struct TodoFormView: View {
                     }
                     
                     Spacer()
+                    
+                    VStack {
+                            HStack(alignment: .lastTextBaseline) {
+                                Label("Weight", systemImage: "scalemass.fill")
+                                
+                                Spacer()
+                                
+                                Text(String(Int(viewStore.weight)))
+                                    .bold()
+                                    .font(.customTitle3)
+                            }
+                            .font(.customBody)
+                            
+                            Slider(
+                                value: viewStore.binding(get: \.weight,
+                                                         send: TodoForm.Action.weightChanged),
+                                in: 0...Double(10)
+                            )
+                    }
+                    .padding()
+                    .background {
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Material.ultraThin)
+//                            .shadow(radius: 4, x: 2, y: 2)
+                    }
+                    .padding(.bottom)
                     
                     HStack {
                         if viewStore.operation == .edit {
@@ -84,7 +116,7 @@ struct TodoFormView: View {
                     }
                 }
                 .navigationTitle(viewStore.operation == .add ? "Add todo": "Edit Todo")
-                #if os(iOS)
+#if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(
                     leading: Button(role: .cancel) { viewStore.send(.cancelButtonTapped) } label: {
@@ -93,7 +125,7 @@ struct TodoFormView: View {
                     trailing: Button("Save") { viewStore.send(.saveButtonTapped) }
                         .bold()
                 )
-                #endif
+#endif
                 .padding()
             }
             .presentationDetents([.medium, .large])

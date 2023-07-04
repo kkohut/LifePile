@@ -88,10 +88,15 @@ struct TodosView: View {
                             }
                             
                             HStack(alignment: .firstTextBaseline, spacing: 4) {
-                                Label("\(viewStore.totalWeight)",
-                                      systemImage: "scalemass.fill")
-                                .font(.custom("DBLCDTempBlack", size: 20))
-
+                                Image(systemName: "scalemass.fill")
+                                Text(String(viewStore.totalWeight))
+                                    .font(.customHeadline)
+                                    .padding(4)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(Color.black)
+                                    }
+                                
                                 Text("weight")
                                     .font(.footnote)
                             }
