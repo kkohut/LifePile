@@ -115,6 +115,34 @@ struct TodosView: View {
                 }
                 .padding(.bottom)
             }
+            .overlay {
+                if viewStore.todos.isEmpty && viewStore.filter == .todo {
+                    VStack {
+                        Circle()
+                            .fill(Color.accentColor)
+                            .padding(.horizontal, 110)
+                            .shadow(color: .accentColor, radius: 8)
+                            .overlay {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(Color.white)
+                                    .font(.system(size: 64))
+                                    .bold()
+                                    .shadow(radius: 8)
+                            }
+                            .padding(.bottom, 4)
+                        
+                        (Text("Well done!\n")
+                            .foregroundColor(.accentColor)
+                            .fontWeight(.semibold)
+                        +
+                        Text("Nothing left to do."))
+                            .font(.customTitle2)
+                            .multilineTextAlignment(.center)
+                    }
+                    .transition(.slide.combined(with: .opacity))
+                }
+            }
+            .animation(.bouncy, value: viewStore.todos.isEmpty)
             .onAppear {
                 viewStore.send(.populate)
             }
