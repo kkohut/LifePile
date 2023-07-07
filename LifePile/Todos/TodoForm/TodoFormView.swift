@@ -27,53 +27,64 @@ struct TodoFormView: View {
                         .background {
                             RoundedRectangle(cornerRadius: 8)
                                 .fill(Material.ultraThin)
-//                                .shadow(radius: 4, x: 2, y: 2)
                         }
                         
                         Spacer()
                         
-                        Group {
-                            if viewStore.completionStatus == .done {
-                                Button(action: { viewStore.send(.markAsToDo) }) {
-                                    Label("Done", systemImage: "checkmark.circle")
-                                }
-                            } else {
-                                Button(action: { viewStore.send(.markAsDone) }) {
-                                    Label("To Do", systemImage: "tray")
+                        if viewStore.operation == .edit {
+                            Group {
+                                if viewStore.completionStatus == .done {
+                                    Button(action: { viewStore.send(.markAsToDo) }) {
+                                        Label("Done", systemImage: "checkmark.circle")
+                                    }
+                                } else {
+                                    Button(action: { viewStore.send(.markAsDone) }) {
+                                        Label("To Do", systemImage: "tray")
+                                    }
                                 }
                             }
+                            .font(.customBody)
+                            .tint(viewStore.completionStatus == .todo ? .orange : .green)
+                            .buttonStyle(.borderedProminent)
+                            .animation(.bouncy, value: viewStore.completionStatus)
                         }
-                        .font(.customBody)
-                        .tint(viewStore.completionStatus == .todo ? .orange : .green)
-                        .buttonStyle(.borderedProminent)
-                        .animation(.bouncy, value: viewStore.completionStatus)
                     }
                     
                     Spacer()
                     
                     VStack {
-                            HStack(alignment: .lastTextBaseline) {
-                                Label("Weight", systemImage: "scalemass.fill")
-                                
-                                Spacer()
-                                
-                                Text(String(Int(viewStore.weight)))
-                                    .bold()
-                                    .font(.customTitle3)
-                            }
-                            .font(.customBody)
+                        HStack(alignment: .lastTextBaseline) {
+                            Label("Weight", systemImage: "scalemass.fill")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.accentColor)
                             
-                            Slider(
-                                value: viewStore.binding(get: \.weight,
-                                                         send: TodoForm.Action.weightChanged),
-                                in: 0...Double(10)
-                            )
+                            Spacer()
+                            
+                            Text(String(Int(viewStore.weight)))
+                                .bold()
+                                .font(.customTitle3)
+                        }
+                        .font(.customBody)
+                        
+                        Slider(
+                            value: viewStore.binding(get: \.weight,
+                                                     send: TodoForm.Action.weightChanged),
+                            in: 0...Double(10)
+                        )
+                        
+                        HStack {
+                            Text("🪶 light")
+                            
+                            Spacer()
+                            
+                            Text("heavy ⚓️")
+                        }
+                        .font(.customBody)
                     }
                     .padding()
                     .background {
                         RoundedRectangle(cornerRadius: 16)
                             .fill(Material.ultraThin)
-//                            .shadow(radius: 4, x: 2, y: 2)
                     }
                     .padding(.bottom)
                     
