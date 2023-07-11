@@ -9,3 +9,7 @@ LifePile is a task management app that helps you actually complete tasks. All th
 ![Editing a todo](Docs/img/todoform.png)
 ![Screen when everything's done](Docs/img/well_done.png)
 ![The widget](Docs/img/widget.png)
+
+All todos             |  Completing a todo | Editing a todo | Everything's done | Homescreen Widget |
+:-------------------------:|:-------------------------:|:-----------------:|:-----------------:|:-----------------:|:
+![All todos](Docs/img/all_todos.png) |  ![Completing a todo](Docs/img/completing.png) | ![Editing a todo](Docs/img/todoform.png) | ![Screen when everything's done](Docs/img/well_done.png) | ![The widget](Docs/img/widget.png) |
