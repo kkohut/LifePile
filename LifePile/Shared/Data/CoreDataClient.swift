@@ -13,7 +13,7 @@ struct CoreDataClient: DependencyKey {
     static var liveValue: CoreDataClient {
         return Self(
             storage: Storage.shared,
-            todoRepository: TodoRepository(managedObjectContext: Storage.shared.container.viewContext) //
+            todoRepository: TodoRepository(managedObjectContext: Storage.shared.container.viewContext)
         )
     }
     

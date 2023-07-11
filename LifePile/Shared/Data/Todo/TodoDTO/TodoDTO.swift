@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct TodoDTO: Identifiable, Equatable {
+public struct TodoDTO: Identifiable, Equatable {
     let title: String
-    let id: UUID
+    public let id: UUID
     let completionStatus: CompletionStatus
     let tag: TagDTO?
     let weight: Int

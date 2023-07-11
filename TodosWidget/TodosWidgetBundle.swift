@@ -12,6 +12,5 @@ import SwiftUI
 struct TodosWidgetBundle: WidgetBundle {
     var body: some Widget {
         TodosWidget()
-        TodosWidgetLiveActivity()
     }
 }

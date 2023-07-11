@@ -8,77 +8,96 @@
 import WidgetKit
 import SwiftUI
 
-struct Provider: AppIntentTimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
-    }
-
-    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: configuration)
+struct Provider: TimelineProvider {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<TodoEntry>) -> Void) {
+        let date = Date()
+        let entry = TodoEntry(
+            date: Date.now,
+            todoData: fetchTodoData()
+        )
+        
+        let nextUpdateDate = Calendar.current.date(byAdding: .minute, value: 1, to: date)!
+        
+        completion(Timeline(entries: [entry], policy: .after(nextUpdateDate)))
     }
     
-    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
-            entries.append(entry)
+    func placeholder(in context: Context) -> TodoEntry {
+        TodoEntry(date: Date.now, todoData: nil)
+    }
+    
+    func getSnapshot(in context: Context, completion: @escaping (TodoEntry) -> Void) {
+        let entry = TodoEntry(date: Date.now, todoData: (count: 7, totalWeight: 54))
+        completion(entry)
+    }
+    
+    func fetchTodoData() -> (count: Int, totalWeight: Int)? {
+        if let userDefaults = UserDefaults(suiteName: "group.lifepile") {
+            let count = userDefaults.integer(forKey: "todoCount")
+            let totalWeight = userDefaults.integer(forKey: "todoTotalWeight")
+            return (count, totalWeight)
+        } else {
+            return nil
         }
-
-        return Timeline(entries: entries, policy: .atEnd)
     }
 }
 
-struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let configuration: ConfigurationAppIntent
-}
-
-struct TodosWidgetEntryView : View {
-    var entry: Provider.Entry
-
-    var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Favorite Emoji:")
-            Text(entry.configuration.favoriteEmoji)
-        }
-    }
+struct TodoEntry: TimelineEntry {
+    var date: Date
+    var todoData: (count: Int, totalWeight: Int)?
 }
 
 struct TodosWidget: Widget {
-    let kind: String = "TodosWidget"
-
     var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
-            TodosWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+        StaticConfiguration(
+            kind: "de.kkohut.lifepile.todos",
+            provider: Provider()
+        ) { entry in
+            TodosWidgetView(todoData: entry.todoData)
         }
+        .configurationDisplayName("Todos")
+        .description("Shows information about your current todos")
+        .supportedFamilies([.systemSmall])
     }
 }
 
-extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "😀"
-        return intent
-    }
+struct TodosWidgetView: View {
+    let todoData: (count: Int, totalWeight: Int)?
     
-    fileprivate static var starEyes: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "🤩"
-        return intent
+    var body: some View {
+        VStack(alignment: .leading) {
+            if let todoData {
+                Text("LifePile")
+                    .font(.title)
+                    .bold()
+                
+                Spacer()
+                
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    Text(String(todoData.count))
+                        .font(.title)
+                        .foregroundColor(Color("AccentColor"))
+                        .bold()
+                    
+                    Text("Todos").foregroundColor(.secondary)
+                        .font(.caption)
+                }
+                
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    Text(String(todoData.totalWeight))
+                        .font(.title)
+                        .foregroundColor(Color("AccentColor"))
+                        .bold()
+                    
+                    Text("total weight").foregroundColor(.secondary)
+                        .font(.caption)
+                }
+            } else {
+                Text("Tap to load data")
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color("WidgetBackground").ignoresSafeArea())
+        .ignoresSafeArea()
     }
-}
-
-#Preview(as: .systemSmall) {
-    TodosWidget()
-} timeline: {
-    SimpleEntry(date: .now, configuration: .smiley)
-    SimpleEntry(date: .now, configuration: .starEyes)
 }

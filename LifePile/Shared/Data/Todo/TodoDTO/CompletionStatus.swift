@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CompletionStatus: String {
+public enum CompletionStatus: String {
     case todo = "todo"
     case done = "done"
     case deleted = "deleted"
