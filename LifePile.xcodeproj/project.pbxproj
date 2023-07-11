@@ -16,6 +16,14 @@
 		D315FB7D2A06BBFA00553FA3 /* TodoMO+dto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315FB7C2A06BBFA00553FA3 /* TodoMO+dto.swift */; };
 		D34FC72C2A0D875900D5479C /* TodoDTO+state.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34FC72B2A0D875900D5479C /* TodoDTO+state.swift */; };
 		D3623AF42A0A61000050BAC6 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3623AF32A0A61000050BAC6 /* CoreDataError.swift */; };
+		D3986B3D2A5DAAE300CE00F5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3986B3C2A5DAAE300CE00F5 /* WidgetKit.framework */; };
+		D3986B3F2A5DAAE300CE00F5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3986B3E2A5DAAE300CE00F5 /* SwiftUI.framework */; };
+		D3986B422A5DAAE300CE00F5 /* TodosWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3986B412A5DAAE300CE00F5 /* TodosWidgetBundle.swift */; };
+		D3986B442A5DAAE300CE00F5 /* TodosWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3986B432A5DAAE300CE00F5 /* TodosWidgetLiveActivity.swift */; };
+		D3986B462A5DAAE300CE00F5 /* TodosWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3986B452A5DAAE300CE00F5 /* TodosWidget.swift */; };
+		D3986B482A5DAAE300CE00F5 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3986B472A5DAAE300CE00F5 /* AppIntent.swift */; };
+		D3986B4A2A5DAAE500CE00F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3986B492A5DAAE500CE00F5 /* Assets.xcassets */; };
+		D3986B4E2A5DAAE500CE00F5 /* TodosWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D3986B3A2A5DAAE300CE00F5 /* TodosWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D3AFD6842A2C2BF900B10DB1 /* TodoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AFD6832A2C2BF900B10DB1 /* TodoFormView.swift */; };
 		D3AFD6862A2CEA5C00B10DB1 /* TodoForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AFD6852A2CEA5C00B10DB1 /* TodoForm.swift */; };
 		D3CC30FD2A0EE41200457B9C /* CompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC30FC2A0EE41200457B9C /* CompletionStatus.swift */; };
@@ -38,6 +46,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D3986B4C2A5DAAE500CE00F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3D754A829FD5F9900550005 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D3986B392A5DAAE300CE00F5;
+			remoteInfo = TodosWidgetExtension;
+		};
 		D3D754C229FD5F9B00550005 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D3D754A829FD5F9900550005 /* Project object */;
@@ -54,6 +69,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D3986B522A5DAAE500CE00F5 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D3986B4E2A5DAAE500CE00F5 /* TodosWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		D315FB6D2A06891100553FA3 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		D315FB702A068A5A00553FA3 /* TodoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepository.swift; sourceTree = "<group>"; };
@@ -64,6 +93,15 @@
 		D315FB7C2A06BBFA00553FA3 /* TodoMO+dto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoMO+dto.swift"; sourceTree = "<group>"; };
 		D34FC72B2A0D875900D5479C /* TodoDTO+state.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoDTO+state.swift"; sourceTree = "<group>"; };
 		D3623AF32A0A61000050BAC6 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
+		D3986B3A2A5DAAE300CE00F5 /* TodosWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TodosWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3986B3C2A5DAAE300CE00F5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		D3986B3E2A5DAAE300CE00F5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		D3986B412A5DAAE300CE00F5 /* TodosWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosWidgetBundle.swift; sourceTree = "<group>"; };
+		D3986B432A5DAAE300CE00F5 /* TodosWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosWidgetLiveActivity.swift; sourceTree = "<group>"; };
+		D3986B452A5DAAE300CE00F5 /* TodosWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosWidget.swift; sourceTree = "<group>"; };
+		D3986B472A5DAAE300CE00F5 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		D3986B492A5DAAE500CE00F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D3986B4B2A5DAAE500CE00F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3AFD6832A2C2BF900B10DB1 /* TodoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormView.swift; sourceTree = "<group>"; };
 		D3AFD6852A2CEA5C00B10DB1 /* TodoForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoForm.swift; sourceTree = "<group>"; };
 		D3CC30FC2A0EE41200457B9C /* CompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionStatus.swift; sourceTree = "<group>"; };
@@ -89,6 +127,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D3986B372A5DAAE300CE00F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3986B3F2A5DAAE300CE00F5 /* SwiftUI.framework in Frameworks */,
+				D3986B3D2A5DAAE300CE00F5 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D3D754AD29FD5F9900550005 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,6 +184,28 @@
 			path = Todo;
 			sourceTree = "<group>";
 		};
+		D3986B3B2A5DAAE300CE00F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3986B3C2A5DAAE300CE00F5 /* WidgetKit.framework */,
+				D3986B3E2A5DAAE300CE00F5 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D3986B402A5DAAE300CE00F5 /* TodosWidget */ = {
+			isa = PBXGroup;
+			children = (
+				D3986B412A5DAAE300CE00F5 /* TodosWidgetBundle.swift */,
+				D3986B432A5DAAE300CE00F5 /* TodosWidgetLiveActivity.swift */,
+				D3986B452A5DAAE300CE00F5 /* TodosWidget.swift */,
+				D3986B472A5DAAE300CE00F5 /* AppIntent.swift */,
+				D3986B492A5DAAE500CE00F5 /* Assets.xcassets */,
+				D3986B4B2A5DAAE500CE00F5 /* Info.plist */,
+			);
+			path = TodosWidget;
+			sourceTree = "<group>";
+		};
 		D3AFD6822A2C2BEB00B10DB1 /* TodoForm */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +241,8 @@
 				D3D754B229FD5F9900550005 /* LifePile */,
 				D3D754C429FD5F9B00550005 /* LifePileTests */,
 				D3D754CE29FD5F9B00550005 /* LifePileUITests */,
+				D3986B402A5DAAE300CE00F5 /* TodosWidget */,
+				D3986B3B2A5DAAE300CE00F5 /* Frameworks */,
 				D3D754B129FD5F9900550005 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -182,6 +253,7 @@
 				D3D754B029FD5F9900550005 /* LifePile.app */,
 				D3D754C129FD5F9B00550005 /* LifePileTests.xctest */,
 				D3D754CB29FD5F9B00550005 /* LifePileUITests.xctest */,
+				D3986B3A2A5DAAE300CE00F5 /* TodosWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -258,6 +330,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D3986B392A5DAAE300CE00F5 /* TodosWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3986B4F2A5DAAE500CE00F5 /* Build configuration list for PBXNativeTarget "TodosWidgetExtension" */;
+			buildPhases = (
+				D3986B362A5DAAE300CE00F5 /* Sources */,
+				D3986B372A5DAAE300CE00F5 /* Frameworks */,
+				D3986B382A5DAAE300CE00F5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TodosWidgetExtension;
+			productName = TodosWidgetExtension;
+			productReference = D3986B3A2A5DAAE300CE00F5 /* TodosWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		D3D754AF29FD5F9900550005 /* LifePile */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D3D754D529FD5F9B00550005 /* Build configuration list for PBXNativeTarget "LifePile" */;
@@ -265,10 +354,12 @@
 				D3D754AC29FD5F9900550005 /* Sources */,
 				D3D754AD29FD5F9900550005 /* Frameworks */,
 				D3D754AE29FD5F9900550005 /* Resources */,
+				D3986B522A5DAAE500CE00F5 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D3986B4D2A5DAAE500CE00F5 /* PBXTargetDependency */,
 			);
 			name = LifePile;
 			packageProductDependencies = (
@@ -321,9 +412,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					D3986B392A5DAAE300CE00F5 = {
+						CreatedOnToolsVersion = 15.0;
+					};
 					D3D754AF29FD5F9900550005 = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -356,11 +450,20 @@
 				D3D754AF29FD5F9900550005 /* LifePile */,
 				D3D754C029FD5F9B00550005 /* LifePileTests */,
 				D3D754CA29FD5F9B00550005 /* LifePileUITests */,
+				D3986B392A5DAAE300CE00F5 /* TodosWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D3986B382A5DAAE300CE00F5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3986B4A2A5DAAE500CE00F5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D3D754AE29FD5F9900550005 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -387,6 +490,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D3986B362A5DAAE300CE00F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3986B462A5DAAE300CE00F5 /* TodosWidget.swift in Sources */,
+				D3986B482A5DAAE300CE00F5 /* AppIntent.swift in Sources */,
+				D3986B442A5DAAE300CE00F5 /* TodosWidgetLiveActivity.swift in Sources */,
+				D3986B422A5DAAE300CE00F5 /* TodosWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D3D754AC29FD5F9900550005 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -436,6 +550,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D3986B4D2A5DAAE500CE00F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D3986B392A5DAAE300CE00F5 /* TodosWidgetExtension */;
+			targetProxy = D3986B4C2A5DAAE500CE00F5 /* PBXContainerItemProxy */;
+		};
 		D3D754C329FD5F9B00550005 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D3D754AF29FD5F9900550005 /* LifePile */;
@@ -449,6 +568,74 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		D3986B502A5DAAE500CE00F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2MT4KUXFG3;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TodosWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TodosWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.kkohut.LifePile.TodosWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D3986B512A5DAAE500CE00F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2MT4KUXFG3;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TodosWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TodosWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.kkohut.LifePile.TodosWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		D3D754D329FD5F9B00550005 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -561,6 +748,7 @@
 		D3D754D629FD5F9B00550005 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LifePile/LifePile.entitlements;
@@ -601,6 +789,7 @@
 		D3D754D729FD5F9B00550005 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LifePile/LifePile.entitlements;
@@ -731,6 +920,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D3986B4F2A5DAAE500CE00F5 /* Build configuration list for PBXNativeTarget "TodosWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3986B502A5DAAE500CE00F5 /* Debug */,
+				D3986B512A5DAAE500CE00F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D3D754AB29FD5F9900550005 /* Build configuration list for PBXProject "LifePile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -775,7 +973,7 @@
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
 			requirement = {
 				kind = exactVersion;
-				version = 0.54.0;
+				version = 0.55.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
