@@ -39,6 +39,7 @@ struct Todos: ReducerProtocol {
     @Dependency(\.uuid) var uuid
     @Dependency(\.tapticEngine) var tapticEngine
     @Dependency(\.coreData) var coreData
+    @Dependency(\.todoUserDefaults) var todoUserDefaults
     
     var body: some ReducerProtocolOf<Self> {
         Reduce { state, action in
@@ -57,7 +58,13 @@ struct Todos: ReducerProtocol {
                 
             case .populate:
                 return .run { [filter = state.filter] send in
-                    await send(.populateWith(todos: loadTodos(filterBy: filter)))
+                    let todos = loadTodos(filterBy: filter)
+                    await send(.populateWith(todos: todos))
+                    
+                    if filter == .todo {
+                        todoUserDefaults.saveCountAndWeight(count: todos.count,
+                                                            totalWeight: todos.map { $0.weight }.reduce(0, +))
+                    }
                 }
                 
             case let .populateWith(todos):
