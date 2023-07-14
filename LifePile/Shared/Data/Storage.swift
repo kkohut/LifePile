@@ -7,6 +7,7 @@
 
 import CoreData
 import Foundation
+import OSLog
 
 public class Storage {
     let container: NSPersistentCloudKitContainer
@@ -30,6 +31,15 @@ public class Storage {
 
     private init(inMemory: Bool = false) {
         self.container = NSPersistentCloudKitContainer(name: "LifePile")
+
+
+        #if DEBUG
+        do {
+            try container.initializeCloudKitSchema(options: [])
+        } catch {
+            Logger().error("Initializing CloudKit schema failed")
+        }
+        #endif
         
         if inMemory {
             self.container.persistentStoreDescriptions.first?.url = URL(filePath: "/dev/null")

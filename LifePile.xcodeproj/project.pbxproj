@@ -23,7 +23,6 @@
 		D3986B4A2A5DAAE500CE00F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3986B492A5DAAE500CE00F5 /* Assets.xcassets */; };
 		D3986B4E2A5DAAE500CE00F5 /* TodosWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D3986B3A2A5DAAE300CE00F5 /* TodosWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D3986B562A5DB9AB00CE00F5 /* TodoUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3986B552A5DB9AB00CE00F5 /* TodoUserDefaults.swift */; };
-		D3986B592A5DC3CC00CE00F5 /* TodosWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3986B582A5DC3CC00CE00F5 /* TodosWidgetView.swift */; };
 		D3986BAB2A5DCAB200CE00F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3D754B729FD5F9B00550005 /* Assets.xcassets */; };
 		D3AFD6842A2C2BF900B10DB1 /* TodoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AFD6832A2C2BF900B10DB1 /* TodoFormView.swift */; };
 		D3AFD6862A2CEA5C00B10DB1 /* TodoForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AFD6852A2CEA5C00B10DB1 /* TodoForm.swift */; };
@@ -103,7 +102,6 @@
 		D3986B4B2A5DAAE500CE00F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3986B552A5DB9AB00CE00F5 /* TodoUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoUserDefaults.swift; sourceTree = "<group>"; };
 		D3986B572A5DBA8F00CE00F5 /* TodosWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TodosWidgetExtension.entitlements; sourceTree = "<group>"; };
-		D3986B582A5DC3CC00CE00F5 /* TodosWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosWidgetView.swift; sourceTree = "<group>"; };
 		D3AFD6832A2C2BF900B10DB1 /* TodoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormView.swift; sourceTree = "<group>"; };
 		D3AFD6852A2CEA5C00B10DB1 /* TodoForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoForm.swift; sourceTree = "<group>"; };
 		D3CC30FC2A0EE41200457B9C /* CompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionStatus.swift; sourceTree = "<group>"; };
@@ -201,7 +199,6 @@
 			children = (
 				D3986B412A5DAAE300CE00F5 /* TodosWidgetBundle.swift */,
 				D3986B452A5DAAE300CE00F5 /* TodosWidget.swift */,
-				D3986B582A5DC3CC00CE00F5 /* TodosWidgetView.swift */,
 				D3986B492A5DAAE500CE00F5 /* Assets.xcassets */,
 				D3986B4B2A5DAAE500CE00F5 /* Info.plist */,
 			);
@@ -515,7 +512,6 @@
 				D3D754F22A0011D200550005 /* TodoView.swift in Sources */,
 				D315FB7D2A06BBFA00553FA3 /* TodoMO+dto.swift in Sources */,
 				D315FB6E2A06891100553FA3 /* Repository.swift in Sources */,
-				D3986B592A5DC3CC00CE00F5 /* TodosWidgetView.swift in Sources */,
 				D3CE072E2A11A64D00F89038 /* Font+custom.swift in Sources */,
 				D3D754F02A0011C700550005 /* TodosView.swift in Sources */,
 				D315FB7B2A06994200553FA3 /* CoreDataClient.swift in Sources */,
@@ -789,7 +785,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -830,7 +826,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

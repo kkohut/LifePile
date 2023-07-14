@@ -78,7 +78,7 @@ struct TodosWidgetView: View {
                         .foregroundColor(Color("AccentColor"))
                         .bold()
                     
-                    Text("Todos").foregroundColor(.secondary)
+                    Text("todos").foregroundColor(.secondary)
                         .font(.caption)
                 }
                 
