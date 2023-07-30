@@ -46,7 +46,7 @@ struct TodoFormView: View {
                             .font(.customBody)
                             .tint(viewStore.completionStatus == .todo ? .orange : .green)
                             .buttonStyle(.borderedProminent)
-                            .animation(.bouncy, value: viewStore.completionStatus)
+                            .animation(.spring(), value: viewStore.completionStatus)
                         }
                     }
                     

@@ -11,7 +11,9 @@ import Charts
 
 struct TodosView: View {
     let store: StoreOf<Todos>
-    @Namespace var animation
+    @Namespace private var animation
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.scenePhase) private var scenePhase
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
@@ -120,7 +122,7 @@ struct TodosView: View {
                     VStack {
                         Circle()
                             .fill(Color.accentColor)
-                            .padding(.horizontal, 110)
+                            .padding(horizontalSizeClass == .compact ? .horizontal : .vertical, 110)
                             .shadow(color: .accentColor, radius: 8)
                             .overlay {
                                 Image(systemName: "checkmark")
@@ -142,7 +144,7 @@ struct TodosView: View {
                     .transition(.slide.combined(with: .opacity))
                 }
             }
-            .animation(.bouncy, value: viewStore.todos.isEmpty)
+            .animation(.spring(), value: viewStore.todos.isEmpty)
             .onAppear {
                 viewStore.send(.populate)
             }
@@ -154,6 +156,11 @@ struct TodosView: View {
                         Color.from(tag: viewStore.todoForm?.tag).opacity(0.15)
                             .edgesIgnoringSafeArea(.bottom)
                     }
+            }
+            .onChange(of: scenePhase) { scenePhase in
+                if scenePhase == .active {
+                    viewStore.send(.populate)
+                }
             }
         }
     }

@@ -10,13 +10,13 @@ import Foundation
 enum SystemImageKey {
     static func from(tagTitle: String?) -> String? {
         switch tagTitle {
-            case "Housekeeping": "house"
-            case "Study": "graduationcap"
-            case "Work": "suitcase"
-            case "Social": "figure.socialdance"
-            case "Sports": "dumbbell"
-            case "Hobbies": "paintpalette"
-            default: nil
+            case "Housekeeping": return "house"
+            case "Study": return "graduationcap"
+            case "Work": return "suitcase"
+            case "Social": return "figure.socialdance"
+            case "Sports": return "dumbbell"
+            case "Hobbies": return "paintpalette"
+            default: return nil
         }
     }
 }
